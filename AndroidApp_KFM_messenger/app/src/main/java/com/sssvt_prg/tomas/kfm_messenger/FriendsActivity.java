@@ -2,19 +2,34 @@ package com.sssvt_prg.tomas.kfm_messenger;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import java.sql.Blob;
+
 public class FriendsActivity extends AppCompatActivity {
+
+    ListView friends_listview;
+    Integer[] imagesId={R.drawable.ic_launcher_background,R.drawable.ic_home_black_24dp,R.drawable.ic_home_black_24dp,R.drawable.ic_home_black_24dp,R.drawable.ic_home_black_24dp,R.drawable.ic_home_black_24dp,R.drawable.ic_home_black_24dp};
+    String[] names={"Pepa","Tomáš","Tomáš","Tomáš","Tomáš","Tomáš","Tomáš"};
+    String[] surnames={"Novak","Okurka","Okurka","Okurka","Okurka","Okurka","Okurka"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends);
+
+        friends_listview=(ListView)findViewById(R.id.friends_listview);
+        CustomListView_friends customListView_friends = new CustomListView_friends(this,surnames,names,imagesId);
+        friends_listview.setAdapter(customListView_friends);
+
+
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
