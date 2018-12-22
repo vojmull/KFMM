@@ -11,7 +11,13 @@ namespace MessengerApi
     [DbConfigurationType(typeof(MySql.Data.EntityFramework.MySqlEFConfiguration))]
     public class dbContext : DbContext
     {
-        public DbSet<Test> Test { get; set; }
+        public DbSet<FriendshipRequests> FriendshipRequests { get; set; }
+        public DbSet<Friendships> Friendships { get; set; }
+        public DbSet<ChatGroupMemebers> ChatGroupMemebers { get; set; }
+        public DbSet<ChatGroups> ChatGroups { get; set; }
+        public DbSet<Messages> Messages { get; set; }
+        public DbSet<MessagesEdit> MessagesEdit { get; set; }
+        public DbSet<Users> Users { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
