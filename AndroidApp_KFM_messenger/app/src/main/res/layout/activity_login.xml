@@ -58,7 +58,7 @@
         app:layout_constraintTop_toBottomOf="@+id/email_register_editText" />
 
     <Button
-        android:id="@+id/register_register_button"
+        android:id="@+id/login_login_button"
         android:layout_width="217dp"
         android:layout_height="45dp"
         android:layout_marginStart="8dp"
@@ -81,14 +81,15 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:checked="false"
         android:text="Remember me"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_register_button" />
+        app:layout_constraintTop_toBottomOf="@+id/login_login_button" />
 
     <TextView
         android:id="@+id/register_login_textView"
