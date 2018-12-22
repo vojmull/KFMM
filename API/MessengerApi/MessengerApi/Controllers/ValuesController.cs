@@ -18,7 +18,7 @@ namespace MessengerApi.Controllers
         {
             try
             {
-                Test t = this._database.Test.ToList().FirstOrDefault();
+                //Test t = this._database.Test.ToList().FirstOrDefault();
             }
             catch
             {

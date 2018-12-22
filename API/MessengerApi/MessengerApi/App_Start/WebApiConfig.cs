@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -7,6 +8,13 @@ namespace MessengerApi
 {
     public static class WebApiConfig
     {
+        public static MySqlConnection Connection()
+        {
+            string connection_string = "server=mysqlstudenti.litv.sssvt.cz;uid=faicdavid;pwd=123456;database=3b2_faicdavid_db2";
+            MySqlConnection Connection = new MySqlConnection(connection_string);
+
+            return Connection;
+        }
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
