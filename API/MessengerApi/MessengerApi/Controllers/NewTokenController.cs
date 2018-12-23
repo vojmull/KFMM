@@ -12,8 +12,9 @@ namespace MessengerApi.Controllers
 {
     public class NewTokenController : ApiController
     {
-        [System.Web.Http.Route("api/newtoken/admin")]
-        public string PostAdmin(Users user)
+        
+        [System.Web.Http.Route("api/newtoken/user")]
+        public string PostUser(Users user)
         {
             string response;
 

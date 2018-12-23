@@ -37,11 +37,11 @@ namespace MessengerApi.Models
                     connection.Open();
 
                     string sql =
-                    "SELECT Tokens.Id,IdUser,Type " +
+                    "SELECT Tokens.Id,IdUser " +
                     "FROM Tokens " +
-                    "LEFT JOIN TokensUsers ON Tokens.Id = TokensAdmins.IdToken " +
+                    "LEFT JOIN TokensUsers ON Tokens.Id = TokensUsers.IdToken " +
                     "LEFT JOIN Users ON TokensUsers.IdUser = Users.Id " +
-                    "WHERE token=@token AND status='current' LIMIT 1";
+                    "WHERE Token=@token AND Status='current' LIMIT 1";
 
                     MySqlCommand query = new MySqlCommand(sql, connection);
                     query.Parameters.AddWithValue("@token", token);
