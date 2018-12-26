@@ -2,22 +2,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_messages"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/title_messages" />
-
-    <item
         android:id="@+id/navigation_profile"
-        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:icon="@drawable/icons8_person_48"
         android:title="@string/title_profile" />
 
     <item
         android:id="@+id/navigation_friends"
-        android:icon="@drawable/ic_notifications_black_24dp"
+        android:icon="@drawable/icons8_user_account_filled_48"
         android:title="@string/title_friends" />
+
+    <item
+        android:id="@+id/navigation_messages"
+        android:icon="@drawable/icons8_communication_48"
+        android:title="@string/title_messages" />
+
     <item
         android:id="@+id/navigation_settings"
-        android:icon="@drawable/ic_notifications_black_24dp"
+        android:icon="@drawable/icons8_more_48"
         android:title="@string/title_settings" />
 
 </menu>
