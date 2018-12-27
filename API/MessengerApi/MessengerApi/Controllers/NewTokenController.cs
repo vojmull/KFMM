@@ -14,7 +14,7 @@ namespace MessengerApi.Controllers
     {
         
         [System.Web.Http.Route("api/newtoken/user")]
-        public string PostUser(Users user)
+        public string PostUser([FromBody]Users user)
         {
             string response;
 
