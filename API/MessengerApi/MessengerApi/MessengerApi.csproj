@@ -212,6 +212,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NewInitializationTokenController.cs" />
     <Compile Include="Controllers\NewTokenController.cs" />
+    <Compile Include="Controllers\RegisterUserController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="App_Data\dbContext.cs" />
     <Compile Include="Global.asax.cs">
@@ -286,6 +287,7 @@
   <ItemGroup>
     <Folder Include="Views\NewInitializationToken\" />
     <Folder Include="Views\NewToken\" />
+    <Folder Include="Views\RegisterUser\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

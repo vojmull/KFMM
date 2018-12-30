@@ -138,7 +138,7 @@ namespace MessengerApi.Models
                     DateTime expirationdate = DateTime.Now.AddDays(1).Date;
 
                     string sqlInsertIntoTokens =
-                        "INSERT INTO Tokens(Token,Status,Expiration) VALUES(@token,'initialize',@expirationdate);" +
+                        "INSERT INTO Tokens(Token,Status,Expiration) VALUES(@token,'current',@expirationdate);" +
                         "SELECT last_insert_id();";
 
                     MySqlCommand queryInsertIntoTokens = new MySqlCommand(sqlInsertIntoTokens, connection);
