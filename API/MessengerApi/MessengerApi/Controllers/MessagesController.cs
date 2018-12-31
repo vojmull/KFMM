@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
+using MessengerApi.Models;
 using Newtonsoft.Json;
 
 namespace MessengerApi.Controllers
@@ -11,20 +12,18 @@ namespace MessengerApi.Controllers
     {
         private dbContext _database = new dbContext();
 
-        [System.Web.Http.Route("api/messages/{userId}")]
+        // Vraci posledních X konverzaci (parametr) s obsahem jedne (posledni zpravy) => pro prehled vsech konverzaci
+        [System.Web.Http.Route("api/messages/{userId}-{conversationCnt}")]
         [System.Web.Http.HttpGet]
-        public string GetMessages(int userId)
+        public string GetMessages(int userId, int conversationCnt)
         {
+            List<Conversations> Conversations = this._database.Conversations.Where(c => c.IdUser1 == userId || c.IdUser2 == userId).Take(conversationCnt).ToList<Conversations>();
+            foreach (Conversations item in Conversations)
+            {
+                item.LastMessage = this._database.Messages.Where(m => m.IdConversation == item.Id).Select(m => m.Content).FirstOrDefault().ToString();
+            }
 
-
-            //return JsonConvert.SerializeObject(this._database.Messages.Where(m => m.IdAuthor == userId).ToList());
-            var query = from m in this._database.Messages
-                        join f in this._database.Friendships
-                        on m.IdFriendship equals f.Id
-                        where f.IdUser1 == userId || f.IdUser2 == userId
-                        select m;
-
-            return JsonConvert.SerializeObject(query.ToList<Messages>());
+            return JsonConvert.SerializeObject(Conversations);
         }
     }
 }

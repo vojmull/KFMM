@@ -221,6 +221,7 @@
     </Compile>
     <Compile Include="Models\ChatGroupMembers.cs" />
     <Compile Include="Models\ChatGroups.cs" />
+    <Compile Include="Models\Conversations.cs" />
     <Compile Include="Models\FriendshipRequests.cs" />
     <Compile Include="Models\Friendships.cs" />
     <Compile Include="Models\Messages.cs" />

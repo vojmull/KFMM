@@ -13,7 +13,7 @@ namespace MessengerApi
     {
         public DbSet<FriendshipRequests> FriendshipRequests { get; set; }
         public DbSet<Friendships> Friendships { get; set; }
-        //public DbSet<ChatGroupMemebers> ChatGroupMemebers { get; set; }
+        public DbSet<Conversations> Conversations { get; set; }
         public DbSet<ChatGroups> ChatGroups { get; set; }
         public DbSet<Messages> Messages { get; set; }
         public DbSet<MessagesEdit> MessagesEdit { get; set; }

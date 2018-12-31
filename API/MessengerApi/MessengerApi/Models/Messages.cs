@@ -12,6 +12,7 @@ namespace MessengerApi
         public int Id { get; set; }
         public int IdFriendship { get; set; }
         public int IdAuthor { get; set; }
+        public int IdConversation { get; set; }
         public string Content { get; set; }
         public bool Delievered { get; set; }
         public bool Seen { get; set; }
