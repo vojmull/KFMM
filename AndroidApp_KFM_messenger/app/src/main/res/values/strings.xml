@@ -11,4 +11,7 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_activity_settings">SettingsActivity</string>
+
+
+    <string name="app_url">http://192.168.50.160:45455</string>
 </resources>

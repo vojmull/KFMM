@@ -18,6 +18,13 @@ namespace MessengerApi.Controllers
         {
 
             MySqlConnection Connection = WebApiConfig.Connection();
+            string r = "";
+
+
+            MySqlCommand QuerySelectUser = Connection.CreateCommand();
+            QuerySelectUser.CommandText = "SELECT Users.Email from Users where Email=@email;";
+            QuerySelectUser.Parameters.AddWithValue("@email", user.Email);
+
 
             MySqlCommand QueryInsertUser = Connection.CreateCommand();
 
@@ -27,14 +34,24 @@ namespace MessengerApi.Controllers
             QueryInsertUser.Parameters.AddWithValue("@surname", user.Surname);
             QueryInsertUser.Parameters.AddWithValue("@email", user.Email);
 
-            string r = "";
 
             try {
+                Connection.Open();
+
+                string UserEmail = Convert.ToString(QuerySelectUser.ExecuteScalar());
+
+                if (UserEmail == user.Email)
+                {
+                    Connection.Close();
+                    return r = "WrongEmail";
+                }
+                   
+
                 Token tok = Token.GenerateNewInicializationToken();
 
                 MySqlCommand QueryInsertTokensUsers = Connection.CreateCommand();
             
-                Connection.Open();
+                
 
                 int UserId = Convert.ToInt32(QueryInsertUser.ExecuteScalar());
 

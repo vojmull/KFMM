@@ -11,12 +11,10 @@ import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class SendPostLogin extends AsyncTask<String, Integer, String> {
-
+public class SendPostRegister extends AsyncTask<String, Integer, String> {
     public String sendPost(String args)
     {
-
-        String apiurl = LoginActivity.AppUrl+"/api/newtoken/user";
+        String apiurl = LoginActivity.AppUrl+"/api/newuser";
         String response = "";
         try {
             URL url= new URL(apiurl);;
@@ -57,6 +55,6 @@ public class SendPostLogin extends AsyncTask<String, Integer, String> {
 
     @Override
     protected String doInBackground(String... strings) {
-        return this.sendPost(strings[0]);//"Email=a@a.a&Password=heslo");
+        return this.sendPost(strings[0]);
     }
 }

@@ -15,7 +15,7 @@ import java.util.concurrent.ExecutionException;
 public class LoginActivity extends AppCompatActivity {
 
     public static final String MyPREFERENCES = "MyPrefs" ;
-
+    public static final String AppUrl = "http://192.168.50.160:45455";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
