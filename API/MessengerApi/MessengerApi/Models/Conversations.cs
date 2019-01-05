@@ -16,5 +16,13 @@ namespace MessengerApi.Models
 
         [NotMapped]
         public string LastMessage { get; set; }
+        [NotMapped]
+        public string LastMessageSent { get; set; }
+        [NotMapped]
+        public string Name { get; set; }
+        [NotMapped]
+        public string Surname { get; set; }
+        [NotMapped]
+        public string ImageServerPath { get; set; }
     }
 }
