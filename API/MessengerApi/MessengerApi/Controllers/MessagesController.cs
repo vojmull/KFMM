@@ -34,7 +34,7 @@ namespace MessengerApi.Controllers
                 return "ERROR";
             }
 
-            if (conversationCnt == -1)
+            if (conversationCnt == 0)
                 conversationCnt = 100000;
 
             List<Conversations> Conversations = this._database.Conversations.Where(c => c.IdUser1 == userId || c.IdUser2 == userId).Take(conversationCnt).ToList<Conversations>();
@@ -91,7 +91,7 @@ namespace MessengerApi.Controllers
                 return "ERROR";
             }
 
-            if (messagesCnt == -1)
+            if (messagesCnt == 0)
                 messagesCnt = 100000;
 
             var query = from m in this._database.Messages
