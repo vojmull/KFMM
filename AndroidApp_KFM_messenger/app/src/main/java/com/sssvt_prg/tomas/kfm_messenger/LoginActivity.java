@@ -1,8 +1,6 @@
 package com.sssvt_prg.tomas.kfm_messenger;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -17,6 +15,7 @@ public class LoginActivity extends AppCompatActivity {
     public static final String MyPREFERENCES = "MyPrefs" ;
     public static final String AppUrl = "http://192.168.50.75:45455";
     public static String Token = "";
+    public static String UserID = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,13 +68,16 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(LoginActivity.this, "Connection with database problem", Toast.LENGTH_SHORT).show();
                         return;
                     }
-
+                    /*
                     SharedPreferences sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedpreferences.edit();
                     editor.putString("token", response);
                     editor.commit();
+                    */
 
-                    Token = response;
+                    String segments[] = response.split("/");
+                    Token = segments[0];
+                    UserID = segments[1];
 
                     Intent startIntent = new Intent(getApplicationContext(),ProfileActivity.class);
                     startActivity(startIntent);

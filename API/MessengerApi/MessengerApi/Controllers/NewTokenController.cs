@@ -39,7 +39,7 @@ namespace MessengerApi.Controllers
                             Token newToken = Token.GenerateNewTokenForUser(Convert.ToInt32(reader["Id"]));
 
                             if (newToken != null)
-                                response = newToken.Value;
+                                response = newToken.Value + "/" + reader["Id"];
                             else
                                 response = "TokenGenerationFailed";
                         }
