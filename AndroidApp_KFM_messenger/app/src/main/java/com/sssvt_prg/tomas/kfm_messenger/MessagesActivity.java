@@ -6,6 +6,8 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import org.json.JSONArray;
@@ -19,17 +21,13 @@ import java.util.concurrent.ExecutionException;
 public class MessagesActivity extends AppCompatActivity {
 
     ListView messages_listview;
-    /*Integer[] imagesId = {R.drawable.ic_launcher_background, R.drawable.ic_home_black_24dp, R.drawable.ic_home_black_24dp, R.drawable.ic_home_black_24dp, R.drawable.ic_home_black_24dp, R.drawable.ic_home_black_24dp, R.drawable.ic_home_black_24dp};
-    String[] names = {"Pepa", "Tomáš", "Tomáš", "Tomáš", "Tomáš", "Tomáš", "Tomáš"};
-    String[] surnames = {"Novak", "Okurka", "Okurka", "Okurka", "Okurka", "Okurka", "Okurka"};
-    String[] messages = {"ahoj pepíku", "ahoj pepíku", "ahoj pepíku", "ahoj pepíku", "ahoj pepíku", "ahoj pepíku", "ahoj pepíku"};
-    String[] times = {"6:06", "6:06", "6:06", "6:06", "6:06", "6:06", "6:06"};*/
 
-    List <String> names = new ArrayList<String>();
-    List <String> surnames = new ArrayList<String>();
+    public static List <String> names = new ArrayList<String>();
+    public static List <String> surnames = new ArrayList<String>();
     List <String> messages= new ArrayList<String>();
     List <String> times = new ArrayList<String>();
     List <Integer> imagesId = new ArrayList<Integer>();
+    public static List <String> conversationsId = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,14 +45,21 @@ public class MessagesActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             try {
-                for(int i=0;i<jArray.length();i++)
+                assert jArray != null;
+                for(int i = 0; i<jArray.length(); i++)
                 {
                     JSONObject jsonObject = jArray.getJSONObject(i);
-                    messages.add(jsonObject.optString("LastMessage"));
+
+                    if(jsonObject.optString("LastMessage").length() >60)
+                        messages.add(jsonObject.optString("LastMessage").substring(0,60)+"...");
+                    else
+                        messages.add(jsonObject.optString("LastMessage"));
+
                     names.add(jsonObject.optString("Name"));
                     surnames.add(jsonObject.optString("Surname"));
                     times.add(jsonObject.optString("LastMessageSent"));
                     imagesId.add(R.drawable.ic_launcher_background);
+                    conversationsId.add(jsonObject.optString("Id"));
                 }
 
             } catch (JSONException e) {
@@ -73,6 +78,15 @@ public class MessagesActivity extends AppCompatActivity {
         CustomListView_messages customListView_messages = new CustomListView_messages(this, surnames, names, imagesId, messages, times);
         messages_listview.setAdapter(customListView_messages);
 
+        messages_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent MessagesDetailIntent = new Intent(MessagesActivity.this, MessagesDetailActivity.class);
+                MessagesDetailIntent.putExtra("ItemIndex",position);
+                startActivity(MessagesDetailIntent);
+            }
+        });
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
             navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -98,6 +112,7 @@ public class MessagesActivity extends AppCompatActivity {
                 }
             });
         }
+
 }
 
 

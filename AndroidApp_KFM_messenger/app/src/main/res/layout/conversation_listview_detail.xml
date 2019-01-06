@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/time_conversation_textView"
+        android:layout_width="143dp"
+        android:layout_height="25dp"
+        android:layout_below="@+id/message_conversation_textView"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="63dp"
+        android:layout_marginRight="63dp"
+        android:text="TextView"
+        app:layout_constraintTop_toBottomOf="@+id/message_conversation_textView"
+        tools:layout_editor_absoluteX="199dp" />
+
+    <Button
+        android:id="@+id/edit_conversation_button"
+        android:layout_width="56dp"
+        android:layout_height="36dp"
+        android:layout_below="@+id/message_conversation_textView"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="-3dp"
+        android:layout_marginEnd="109dp"
+        android:layout_marginRight="109dp"
+        android:layout_toStartOf="@+id/time_conversation_textView"
+        android:layout_toLeftOf="@+id/time_conversation_textView"
+        android:text="EDIT"
+        app:layout_constraintTop_toBottomOf="@+id/message_conversation_textView"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <TextView
+        android:id="@+id/message_conversation_textView"
+        android:layout_width="355dp"
+        android:layout_height="55dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="21dp"
+        android:layout_marginRight="21dp"
+        android:text="TextView"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.615"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/read_conversation_imageView"
+        android:layout_width="24dp"
+        android:layout_height="23dp"
+        android:layout_below="@+id/message_conversation_textView"
+        android:layout_alignStart="@+id/time_conversation_textView"
+        android:layout_alignLeft="@+id/time_conversation_textView"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="158dp"
+        android:layout_marginLeft="158dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        tools:srcCompat="@tools:sample/avatars" />
+
+</RelativeLayout>
