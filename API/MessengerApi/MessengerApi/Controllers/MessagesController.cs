@@ -102,5 +102,43 @@ namespace MessengerApi.Controllers
 
             return JsonConvert.SerializeObject(query.OrderByDescending(m => m.TimeSent).Take(messagesCnt).ToList());
         }
+
+        [System.Web.Http.Route("api/messages/postmessage/{token}-{userId}-{conversationId}")]
+        [System.Web.Http.HttpPost]
+        public string PostMessage(string token, int userId, int conversationId, [FromBody]string content)
+        {
+            Token t = Token.Exists(token);
+            if (t == null)
+            {
+                //token není v databázi  
+                return "ERROR";
+            }
+            if (!t.IsUser)
+            {
+                //token nepatří userovi
+                return "ERROR";
+            }
+
+            int user2Id = this._database.Conversations.Where(c => c.Id == conversationId).Select(c => (c.IdUser1 == userId) ? c.IdUser2 : c.IdUser1).FirstOrDefault();
+
+            Messages m = new Messages()
+            {
+                Content = content,
+                Delievered = false,
+                Edited = false,
+                IdAuthor = userId,
+                IdConversation = conversationId,
+                Seen = false,
+                TimeSent = DateTime.Now.ToString("yyyymmdd hh:MM:ss"),
+                TimeSeen = "",
+                TimeDelievered = "",
+                IdFriendship = this._database.Friendships.Where(f => (f.IdUser1 == userId && f.IdUser2 == user2Id) || (f.IdUser1 == user2Id && f.IdUser2 == userId)).Select(f => f.Id).First()
+            };
+
+            this._database.Messages.Add(m);
+            this._database.SaveChanges();
+
+            return "ok";
+        }
     }
 }

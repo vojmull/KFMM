@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using MessengerApi.Models;
 using Newtonsoft.Json;
 
 namespace MessengerApi.Controllers
