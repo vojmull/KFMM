@@ -162,7 +162,7 @@ namespace MessengerApi.Models
         private static string GenerateNewToken()
         {
             const int length = 32;
-            const string valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890,-";
+            const string valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890,";
             char[] result = new char[length];
 
             using (RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider())

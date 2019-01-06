@@ -15,7 +15,9 @@ import java.util.concurrent.ExecutionException;
 public class LoginActivity extends AppCompatActivity {
 
     public static final String MyPREFERENCES = "MyPrefs" ;
-    public static final String AppUrl = "http://192.168.50.160:45455";
+    public static final String AppUrl = "http://192.168.50.75:45455";
+    public static String Token = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +75,9 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putString("token", response);
                     editor.commit();
 
-                    Intent startIntent = new Intent(getApplicationContext(),MessagesActivity.class);
+                    Token = response;
+
+                    Intent startIntent = new Intent(getApplicationContext(),ProfileActivity.class);
                     startActivity(startIntent);
 
                 } catch (ExecutionException e) {

@@ -11,15 +11,18 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.List;
+
 public class CustomListView_messages extends ArrayAdapter<String> {
 
-    private Integer[] imagesId;
-    private String[] names;
-    private String[] surnames;
-    private String[] messages;
-    private String[] times;
+    private List<Integer> imagesId;
+    private List<String> names;
+    private List<String> surnames;
+    private List<String> messages;
+    private List<String> times;
     private Activity context;
-    public CustomListView_messages(@NonNull Context context, String[] surnames, String[] names, Integer[] imagesId,String[] messages,String[] times){
+
+    public CustomListView_messages(@NonNull Context context, List<String> surnames, List<String> names, List<Integer> imagesId, List<String> messages, List<String> times){
         super(context,R.layout.messages_listview_detail,names);
 
         this.context = (Activity) context;
@@ -46,11 +49,11 @@ public class CustomListView_messages extends ArrayAdapter<String> {
         else{
             viewHolder = (ViewHolder)r.getTag();
         }
-        viewHolder.ivw.setImageResource(imagesId[position]);
-        viewHolder.tvnames1.setText(names[position]);
-        viewHolder.tvsurnames2.setText(surnames[position]);
-        viewHolder.tvmessages.setText(messages[position]);
-        viewHolder.tvtimes.setText(times[position]);
+        viewHolder.ivw.setImageResource(imagesId.get(position));
+        viewHolder.tvnames1.setText(names.get(position));
+        viewHolder.tvsurnames2.setText(surnames.get(position));
+        viewHolder.tvmessages.setText(messages.get(position));
+        viewHolder.tvtimes.setText(times.get(position));
 
 
         return r;
