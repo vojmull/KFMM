@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Http;
 using MessengerApi.Models;
 using Newtonsoft.Json;
 
 namespace MessengerApi.Controllers
 {
-    public class ProfileControler
+    public class ProfileControler : ApiController
     {
         private dbContext _database = new dbContext();
 

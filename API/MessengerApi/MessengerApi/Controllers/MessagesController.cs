@@ -100,7 +100,7 @@ namespace MessengerApi.Controllers
                         where c.Id == conversationId
                         select m;
 
-            return JsonConvert.SerializeObject(query.OrderByDescending(m => m.TimeSent).Take(messagesCnt).ToList());
+            return JsonConvert.SerializeObject(query.OrderBy(m => m.Id).Take(messagesCnt).ToList());
         }
 
         [System.Web.Http.Route("api/messages/postmessage/{token}-{userId}-{conversationId}")]
