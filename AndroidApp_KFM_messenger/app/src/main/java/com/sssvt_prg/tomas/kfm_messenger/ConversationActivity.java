@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public class MessagesDetailActivity extends AppCompatActivity {
+public class ConversationActivity extends AppCompatActivity {
 
     ListView conversation_listView;
 
@@ -26,14 +26,14 @@ public class MessagesDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_messages_detail);
+        setContentView(R.layout.activity_conversation);
 
         Intent in = getIntent();
         int index = in.getIntExtra("ItemIndex",-1);
 
         String idMessage = MessagesActivity.conversationsId.get(index);
 
-        TextView messages_user = (TextView) findViewById(R.id.user_messagesDetail_textView);
+        TextView messages_user = (TextView) findViewById(R.id.userName_textView);
         messages_user.setText(MessagesActivity.names.get(index)+" "+MessagesActivity.surnames.get(index));
 
 
@@ -67,10 +67,13 @@ public class MessagesDetailActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        conversation_listView = (ListView)findViewById(R.id.conversation_listView);
-        CustomListView_conversations conversations_adapter = new CustomListView_conversations(this,conversations,delievered,seen,times);
-        conversation_listView.setAdapter(conversations_adapter);
+        conversation_listView = (ListView) findViewById(R.id.conversation_listView);
+        CustomListView_conversations customListView_conversations = new CustomListView_conversations(this,conversations,delievered,seen,times);
+        conversation_listView.setAdapter(customListView_conversations);
+/*
+        conversation_listView = (ListView) findViewById(R.id.conversation_listView);
+        CustomListView_conversations customListView_conversations = new CustomListView_conversations(this,conversations,delievered,seen,times);
+        conversation_listView.setAdapter(customListView_conversations);*/
 
     }
-
 }

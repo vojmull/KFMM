@@ -82,7 +82,7 @@ public class MessagesActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Intent MessagesDetailIntent = new Intent(MessagesActivity.this, MessagesDetailActivity.class);
+                Intent MessagesDetailIntent = new Intent(MessagesActivity.this,ConversationActivity.class);
                 MessagesDetailIntent.putExtra("ItemIndex",position);
                 startActivity(MessagesDetailIntent);
             }
