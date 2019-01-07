@@ -129,7 +129,7 @@ namespace MessengerApi.Controllers
                 IdAuthor = userId,
                 IdConversation = conversationId,
                 Seen = false,
-                TimeSent = DateTime.Now.ToString("yyyymmdd hh:MM:ss"),
+                TimeSent = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
                 TimeSeen = "",
                 TimeDelievered = "",
                 IdFriendship = this._database.Friendships.Where(f => (f.IdUser1 == userId && f.IdUser2 == user2Id) || (f.IdUser1 == user2Id && f.IdUser2 == userId)).Select(f => f.Id).First()
