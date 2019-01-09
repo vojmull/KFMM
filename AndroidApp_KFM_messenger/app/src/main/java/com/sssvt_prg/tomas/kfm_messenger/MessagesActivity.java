@@ -34,6 +34,13 @@ public class MessagesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messages);
 
+        names = new ArrayList<>();
+        surnames= new ArrayList<>();
+        messages= new ArrayList<>();
+        times= new ArrayList<>();
+        imagesId= new ArrayList<>();
+        conversationsId= new ArrayList<>();
+
         try {
             String response = new SendGetMessages().execute().get();
             response = response.substring(1,response.length()-1);

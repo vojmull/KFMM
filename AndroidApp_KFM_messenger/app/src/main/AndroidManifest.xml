@@ -41,7 +41,8 @@
         <activity
             android:name=".SettingsActivity"
             android:label="Settings" />
-        <activity android:name=".ConversationActivity"></activity>
+        <activity android:name=".ConversationActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

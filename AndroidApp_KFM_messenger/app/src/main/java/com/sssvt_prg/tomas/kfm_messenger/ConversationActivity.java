@@ -3,6 +3,9 @@ package com.sssvt_prg.tomas.kfm_messenger;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -16,25 +19,31 @@ import java.util.concurrent.ExecutionException;
 
 public class ConversationActivity extends AppCompatActivity {
 
-    ListView conversation_listView;
 
-    List<String> conversations = new ArrayList<String>();
-    List<String> seen = new ArrayList<String>();
-    List<String> delievered = new ArrayList<String>();
-    List<String> times = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation);
 
+
+
+        ListView conversation_listView;
+
+        List<String> conversations = new ArrayList<String>();
+        List<String> seen = new ArrayList<String>();
+        List<String> delievered = new ArrayList<String>();
+        List<String> times = new ArrayList<String>();
+
         Intent in = getIntent();
         int index = in.getIntExtra("ItemIndex",-1);
 
-        String idMessage = MessagesActivity.conversationsId.get(index);
+        final String idMessage = MessagesActivity.conversationsId.get(index);
 
         TextView messages_user = (TextView) findViewById(R.id.userName_textView);
+
         messages_user.setText(MessagesActivity.names.get(index)+" "+MessagesActivity.surnames.get(index));
+
 
 
         try {
@@ -70,10 +79,27 @@ public class ConversationActivity extends AppCompatActivity {
         conversation_listView = (ListView) findViewById(R.id.conversation_listView);
         CustomListView_conversations customListView_conversations = new CustomListView_conversations(this,conversations,delievered,seen,times);
         conversation_listView.setAdapter(customListView_conversations);
-/*
-        conversation_listView = (ListView) findViewById(R.id.conversation_listView);
-        CustomListView_conversations customListView_conversations = new CustomListView_conversations(this,conversations,delievered,seen,times);
-        conversation_listView.setAdapter(customListView_conversations);*/
 
+
+        Button send_button = (Button) findViewById(R.id.send_button);
+        send_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                EditText messsage_edittext = (EditText) findViewById(R.id.message_editText);
+                String message = messsage_edittext.getText() + "";
+
+                SendPostConversation spc = new SendPostConversation();
+
+                try {
+                    String response = spc.execute("content="+message+"/"+idMessage).get();
+                    messsage_edittext.setText("");
+                } catch (ExecutionException e1) {
+                    e1.printStackTrace();
+                } catch (InterruptedException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
     }
 }

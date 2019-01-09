@@ -13,7 +13,7 @@ import java.util.concurrent.ExecutionException;
 public class LoginActivity extends AppCompatActivity {
 
     public static final String MyPREFERENCES = "MyPrefs" ;
-    public static final String AppUrl = "http://192.168.50.75:45455";
+    public static final String AppUrl = "https://kfmmmessenger.azurewebsites.net";
     public static String Token = "";
     public static String UserID = "";
 

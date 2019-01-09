@@ -6,14 +6,14 @@
 
     <Button
         android:id="@+id/chat_friends_listview_button"
-        android:layout_width="54dp"
-        android:layout_height="36dp"
+        android:layout_width="wrap_content"
+        android:layout_height="38dp"
         android:layout_below="@+id/name_friends_textView"
-        android:layout_marginStart="17dp"
-        android:layout_marginLeft="17dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginRight="11dp"
         android:layout_toStartOf="@+id/block_friends_button"
         android:layout_toLeftOf="@+id/block_friends_button"
         android:layout_toEndOf="@+id/img_friends_imageView"
@@ -25,46 +25,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/remove_friends_button"
-        android:layout_width="56dp"
-        android:layout_height="36dp"
-        android:layout_below="@+id/surname_friends_textView"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="6dp"
-        android:layout_marginEnd="66dp"
-        android:layout_marginRight="66dp"
-        android:background="@color/primaryColor"
-        android:text="Remove"
-        android:textAllCaps="false"
-        android:textColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/block_friends_button"
-        android:layout_width="54dp"
-        android:layout_height="36dp"
-        android:layout_below="@+id/surname_friends_textView"
-        android:layout_alignBottom="@+id/remove_friends_button"
-        android:layout_marginTop="6dp"
-        android:layout_marginEnd="28dp"
-        android:layout_marginRight="28dp"
-        android:layout_marginBottom="0dp"
-        android:layout_toStartOf="@+id/remove_friends_button"
-        android:layout_toLeftOf="@+id/remove_friends_button"
-        android:background="@color/primaryColor"
-        android:text="Block"
-        android:textAllCaps="false"
-        android:textColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ImageView
         android:id="@+id/img_friends_imageView"
-        android:layout_width="66dp"
-        android:layout_height="67dp"
+        android:layout_width="72dp"
+        android:layout_height="73dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
@@ -75,7 +39,7 @@
 
     <TextView
         android:id="@+id/name_friends_textView"
-        android:layout_width="61dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginStart="18dp"
@@ -88,7 +52,7 @@
 
     <TextView
         android:id="@+id/surname_friends_textView"
-        android:layout_width="82dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/name_friends_textView"
         android:layout_alignParentTop="true"
