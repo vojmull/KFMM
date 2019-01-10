@@ -16,11 +16,12 @@ public class CustomListView_conversations extends BaseAdapter {
     private List<String> seen;
     private List<String> delievered;
     private List<String> times;
+    private List<String> authors;
     private Activity context;
 
     LayoutInflater mInflater;
 
-    public CustomListView_conversations(@NonNull Context context, List<String> conversations, List<String> delievered, List<String> seen, List<String> times) {
+    public CustomListView_conversations(@NonNull Context context, List<String> conversations, List<String> delievered, List<String> seen, List<String> times, List<String> authors) {
         //super(context,R.layout.conversation_listview_detail);
 
         this.context = (Activity) context;
@@ -28,47 +29,11 @@ public class CustomListView_conversations extends BaseAdapter {
         this.seen = seen;
         this.delievered = delievered;
         this.times = times;
+        this.authors=authors;
         mInflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
 
 
     }
-/*
-    @NonNull
-    @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        View r = convertView;
-        ViewHolder viewHolder=null;
-        if(r==null)
-        {
-            LayoutInflater layoutInflater=context.getLayoutInflater();
-            r=layoutInflater.inflate(R.layout.conversation_listview_detail,null,true);
-            viewHolder = new ViewHolder(r);
-            r.setTag(viewHolder);
-        }
-        else{
-            viewHolder = (ViewHolder)r.getTag();
-        }
-
-        viewHolder.tvconversations.setText(conversations.get(position));
-        viewHolder.tvseen.setText(seen.get(position));
-        viewHolder.tvdelievered.setText(delievered.get(position));
-        viewHolder.tvtimes.setText(times.get(position));
-
-        return r;
-    }
-    class ViewHolder{
-        TextView tvconversations;
-        TextView tvseen;
-        TextView tvdelievered;
-        TextView tvtimes;
-
-        ViewHolder(View v){
-            tvconversations = (TextView) v.findViewById(R.id.message_detail_textView);
-            //tvseen = (TextView)v.findViewById(R.id.);
-            //tvdelievered=(TextView)v.findViewById(R.id.message_messages_textView);
-            tvtimes=(TextView)v.findViewById(R.id.time_detail_textView);
-        }
-    }*/
 
     @Override
     public int getCount() {
@@ -86,9 +51,15 @@ public class CustomListView_conversations extends BaseAdapter {
         return position;
     }
 
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View v = mInflater.inflate(R.layout.conversation_listview_detail,null);
+
+        if(authors.get(position).equals(LoginActivity.UserID)) {
+            v.setBackgroundColor(mInflater.getContext().getResources().getColor(R.color.primaryColor));
+
+        }
 
         TextView conversationTV = (TextView) v.findViewById(R.id.message_detail_textView);
         TextView timeTV = (TextView) v.findViewById(R.id.time_detail_textView);

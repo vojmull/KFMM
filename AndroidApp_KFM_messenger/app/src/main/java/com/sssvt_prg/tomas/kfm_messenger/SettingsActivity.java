@@ -6,7 +6,8 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.Button;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -14,6 +15,18 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+        Button logout_settings_button = (Button) findViewById(R.id.logout_settings_button);
+        logout_settings_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoginActivity.Token = "";
+                LoginActivity.UserID = "";
+                Intent startIntent = new Intent(getApplicationContext(), LoginActivity.class);
+                //pass informations to anther activity later
+                startActivity(startIntent);
+            }
+        });
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

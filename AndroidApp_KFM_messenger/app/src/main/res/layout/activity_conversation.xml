@@ -6,6 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".ConversationActivity">
 
+    <Button
+        android:id="@+id/reload_conversation_button"
+        android:layout_width="57dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="256dp"
+        android:layout_marginRight="256dp"
+        android:layout_marginBottom="468dp"
+        android:background="@android:color/white"
+        android:text="Reload"
+        android:textAllCaps="false"
+        android:textColor="@color/primaryColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/register_login_textView"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ListView
         android:id="@+id/conversation_listView"
         android:layout_width="match_parent"
@@ -15,6 +34,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="14dp"
+        android:transcriptMode="alwaysScroll"
+        android:stackFromBottom="true"
         app:layout_constraintBottom_toTopOf="@+id/send_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -23,8 +44,8 @@
 
     <TextView
         android:id="@+id/userName_textView"
-        android:layout_width="341dp"
-        android:layout_height="46dp"
+        android:layout_width="235dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
@@ -36,6 +57,7 @@
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/conversation_listView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.884"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -73,4 +95,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/message_editText"
         app:layout_constraintTop_toBottomOf="@+id/conversation_listView" />
+
 </android.support.constraint.ConstraintLayout>
