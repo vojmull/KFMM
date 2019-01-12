@@ -112,7 +112,7 @@ namespace MessengerApi.Controllers
 
         [System.Web.Http.Route("api/messages/postmessage/{token}-{userId}-{conversationId}")]
         [System.Web.Http.HttpPost]
-        public string PostMessage(string token, int userId, int conversationId, [FromBody]Messages content)
+        public string PostMessage(string token, int userId, int conversationId, [FromBody]string content)
         {
             Token t = Token.Exists(token);
             if (t == null)
@@ -129,7 +129,7 @@ namespace MessengerApi.Controllers
 
             Messages m = new Messages()
             {
-                Content = content.Content,
+                Content = content,
                 Delievered = false,
                 Edited = false,
                 IdAuthor = userId,
