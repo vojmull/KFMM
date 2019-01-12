@@ -18,6 +18,7 @@ namespace MessengerApi
         public DbSet<Messages> Messages { get; set; }
         public DbSet<MessagesEdit> MessagesEdit { get; set; }
         public DbSet<Users> Users { get; set; }
+        public DbSet<Participants> Participants { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

@@ -37,16 +37,23 @@ namespace MessengerApi.Controllers
             if (conversationCnt == 0)
                 conversationCnt = 100000;
 
-            List<Conversations> Conversations = this._database.Conversations.Where(c => c.IdUser1 == userId || c.IdUser2 == userId).Take(conversationCnt).ToList<Conversations>();
+            var query = from c in this._database.Conversations
+                        join p in this._database.Participants
+                        on c.Id equals p.IdConversation
+                        where p.IdUser == userId
+                        select c;
+
+            List<Conversations> Conversations = query.Take(conversationCnt).ToList();
             foreach (Conversations item in Conversations)
             {
                 Messages lastMessage = this._database.Messages.Where(m => m.IdConversation == item.Id).OrderByDescending(m => m.TimeSent).FirstOrDefault();
                 item.LastMessage = lastMessage.Content;
                 item.LastMessageSent = lastMessage.TimeSent;
-                int userIdWith = (userId == item.IdUser1) ? item.IdUser2 : item.IdUser1;
-                Users user = this._database.Users.Where(u => u.Id == userIdWith).FirstOrDefault();
-                item.Name = user.Name;
-                item.Surname = user.Surname;
+
+                Participants par = this._database.Participants.Where(p => p.IdConversation == item.Id && userId != p.IdUser).FirstOrDefault();
+
+                Users user = this._database.Users.Where(u => u.Id == par.IdUser).FirstOrDefault();
+                item.ChatName = (user == null) ? "Group" : $"{user.Name} {user.Surname}";
                 item.ImageServerPath = user.ImageServerPath;
             }
 
@@ -119,7 +126,6 @@ namespace MessengerApi.Controllers
                 return "ERROR";
             }
 
-            int user2Id = this._database.Conversations.Where(c => c.Id == conversationId).Select(c => (c.IdUser1 == userId) ? c.IdUser2 : c.IdUser1).FirstOrDefault();
 
             Messages m = new Messages()
             {
@@ -132,7 +138,6 @@ namespace MessengerApi.Controllers
                 TimeSent = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
                 TimeSeen = "",
                 TimeDelievered = "",
-                IdFriendship = this._database.Friendships.Where(f => (f.IdUser1 == userId && f.IdUser2 == user2Id) || (f.IdUser1 == user2Id && f.IdUser2 == userId)).Select(f => f.Id).First()
             };
 
             this._database.Messages.Add(m);

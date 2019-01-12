@@ -1,6 +1,7 @@
 ﻿using MessengerApi.Models;
 using MessengerApi.Utilities;
 using MySql.Data.MySqlClient;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,25 +15,25 @@ namespace MessengerApi.Controllers
     {
         [System.Web.Http.Route("api/newuser")]
         [System.Web.Http.HttpPost]
-        public string Post([FromBody]Users user)
+        public string Post([FromBody]string user)
         {
-
+            Users userr = JsonConvert.DeserializeObject<Users>(user);
             MySqlConnection Connection = WebApiConfig.Connection();
             string r = "";
 
 
             MySqlCommand QuerySelectUser = Connection.CreateCommand();
             QuerySelectUser.CommandText = "SELECT Users.Email from Users where Email=@email;";
-            QuerySelectUser.Parameters.AddWithValue("@email", user.Email);
+            QuerySelectUser.Parameters.AddWithValue("@email", userr.Email);
 
 
             MySqlCommand QueryInsertUser = Connection.CreateCommand();
 
             QueryInsertUser.CommandText = "INSERT INTO Users (Name,Surname,Password,Email) VALUES (@name,@surname,@password,@email);" + " SELECT last_insert_id();";
-            QueryInsertUser.Parameters.AddWithValue("@name", user.Name);
-            QueryInsertUser.Parameters.AddWithValue("@password", HashUtility.HashPassword(user.Password));
-            QueryInsertUser.Parameters.AddWithValue("@surname", user.Surname);
-            QueryInsertUser.Parameters.AddWithValue("@email", user.Email);
+            QueryInsertUser.Parameters.AddWithValue("@name", userr.Name);
+            QueryInsertUser.Parameters.AddWithValue("@password", HashUtility.HashPassword(userr.Password));
+            QueryInsertUser.Parameters.AddWithValue("@surname", userr.Surname);
+            QueryInsertUser.Parameters.AddWithValue("@email", userr.Email);
 
 
             try {
@@ -40,7 +41,7 @@ namespace MessengerApi.Controllers
 
                 string UserEmail = Convert.ToString(QuerySelectUser.ExecuteScalar());
 
-                if (UserEmail == user.Email)
+                if (UserEmail == userr.Email)
                 {
                     Connection.Close();
                     return r = "WrongEmail";
