@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -25,6 +27,15 @@ public class ConversationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation);
+
+
+        Window window = this.getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(LoginActivity.newColor);
+
+        Button reload_conversation_button = (Button) findViewById(R.id.reload_conversation_button);
+        reload_conversation_button.setTextColor(LoginActivity.newColor);
 
         ListView conversation_listView;
 
@@ -96,7 +107,7 @@ public class ConversationActivity extends AppCompatActivity {
                 SendPostConversation spc = new SendPostConversation();
 
                 try {
-                    String response = spc.execute("content="+message+"/"+idMessage).get();
+                    String response = spc.execute("="+message+"/"+idMessage).get();
                     messsage_edittext.setText("");
 
                     ListView conversation_listView;
@@ -109,7 +120,7 @@ public class ConversationActivity extends AppCompatActivity {
 
                     try {
                         String response2 = new SendGetConversations().execute(idMessage).get();
-                        response2 = response2.substring(1,response.length()-1);
+                        response2 = response2.substring(1,response2.length()-1);
                         response2 = response2.replace("\\","");
                         JSONArray jArray = null;
                         try {
@@ -151,7 +162,7 @@ public class ConversationActivity extends AppCompatActivity {
             }
         });
 
-        Button reload_conversation_button = (Button) findViewById(R.id.reload_conversation_button);
+        //Button reload_conversation_button = (Button) findViewById(R.id.reload_conversation_button);
         reload_conversation_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

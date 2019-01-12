@@ -1,17 +1,20 @@
 package com.sssvt_prg.tomas.kfm_messenger;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.concurrent.ExecutionException;
 
 public class LoginActivity extends AppCompatActivity {
 
+    public static int newColor = Color.rgb(253,166,1);//= Color.parseColor("#fda601");
     public static final String MyPREFERENCES = "MyPrefs" ;
     public static final String AppUrl = "https://kfmmmessenger.azurewebsites.net";
     public static String Token = "";
@@ -22,10 +25,21 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+
+
+        newColor = Color.rgb(253,166,1);
+
+        Button login_login_button=(Button)findViewById(R.id.login_login_button);
+        login_login_button.setBackgroundColor(LoginActivity.newColor);
+        TextView login_login_textView=(TextView)findViewById(R.id.login_login_textView);
+        login_login_textView.setTextColor(LoginActivity.newColor);
+        Button register_login_button=(Button)findViewById(R.id.register_login_button);
+        register_login_button.setTextColor(LoginActivity.newColor);
+
         final EditText email_login_edittext = (EditText) findViewById(R.id.email_login_editText);
         final EditText password_login_edittext = (EditText) findViewById(R.id.password_login_editText);
 
-        Button register_login_button = (Button) findViewById(R.id.register_login_button);
+        //Button register_login_button = (Button) findViewById(R.id.register_login_button);
         register_login_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -35,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        Button login_login_button = (Button) findViewById(R.id.login_login_button);
+        //Button login_login_button = (Button) findViewById(R.id.login_login_button);
         login_login_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

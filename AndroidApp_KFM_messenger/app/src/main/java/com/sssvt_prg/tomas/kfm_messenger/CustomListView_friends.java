@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -45,6 +46,7 @@ public class CustomListView_friends extends ArrayAdapter<String> {
         viewHolder.ivw.setImageResource(imagesId[position]);
         viewHolder.tvw1.setText(names[position]);
         viewHolder.tvw2.setText(surnames[position]);
+        viewHolder.bchat.setBackgroundColor(LoginActivity.newColor);
 
 
         return r;
@@ -53,11 +55,13 @@ public class CustomListView_friends extends ArrayAdapter<String> {
         TextView tvw1;
         TextView tvw2;
         ImageView ivw;
+        Button bchat;
 
         ViewHolder(View v){
         tvw1 = (TextView) v.findViewById(R.id.name_friends_textView);
         tvw2 = (TextView)v.findViewById(R.id.surname_friends_textView);
         ivw = (ImageView)v.findViewById(R.id.img_friends_imageView);
+        bchat = (Button)v.findViewById(R.id.chat_friends_listview_button);
         }
     }
 }

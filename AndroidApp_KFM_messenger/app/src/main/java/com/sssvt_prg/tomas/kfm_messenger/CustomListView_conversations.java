@@ -57,7 +57,7 @@ public class CustomListView_conversations extends BaseAdapter {
         View v = mInflater.inflate(R.layout.conversation_listview_detail,null);
 
         if(authors.get(position).equals(LoginActivity.UserID)) {
-            v.setBackgroundColor(mInflater.getContext().getResources().getColor(R.color.primaryColor));
+            v.setBackgroundColor(LoginActivity.newColor);
 
         }
 

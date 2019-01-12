@@ -1,17 +1,17 @@
 package com.sssvt_prg.tomas.kfm_messenger;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Resources;
+import android.content.res.ColorStateList;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
-
-import java.sql.Blob;
 
 public class FriendsActivity extends AppCompatActivity {
 
@@ -25,6 +25,19 @@ public class FriendsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends);
 
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(LoginActivity.newColor));
+
+        Window window = this.getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(LoginActivity.newColor);
+
+        Button add_friends_button=(Button)findViewById(R.id.add_friends_button);
+        add_friends_button.setBackgroundColor(LoginActivity.newColor);
+        //Button chat_friends_listview_button=(Button)findViewById(R.id.chat_friends_listview_button);
+        //chat_friends_listview_button.setBackgroundColor(LoginActivity.newColor);
+
+
         friends_listview=(ListView)findViewById(R.id.friends_listview);
         CustomListView_friends customListView_friends = new CustomListView_friends(this,surnames,names,imagesId);
         friends_listview.setAdapter(customListView_friends);
@@ -32,6 +45,8 @@ public class FriendsActivity extends AppCompatActivity {
 
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setItemIconTintList(ColorStateList.valueOf(LoginActivity.newColor));
+        navigation.setItemTextColor(ColorStateList.valueOf(LoginActivity.newColor));
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {

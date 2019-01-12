@@ -1,11 +1,15 @@
 package com.sssvt_prg.tomas.kfm_messenger;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 
 import org.json.JSONException;
@@ -19,10 +23,15 @@ public class ProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(LoginActivity.newColor));
+
+        Window window = this.getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(LoginActivity.newColor);
 
         EditText name_profile_editText = (EditText) findViewById(R.id.name_profile_editText);
         EditText surname_profile_editText = (EditText) findViewById(R.id.surname_profile_editText);
@@ -57,6 +66,8 @@ public class ProfileActivity extends AppCompatActivity {
 
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setItemIconTintList(ColorStateList.valueOf(LoginActivity.newColor));
+        navigation.setItemTextColor(ColorStateList.valueOf(LoginActivity.newColor));
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {

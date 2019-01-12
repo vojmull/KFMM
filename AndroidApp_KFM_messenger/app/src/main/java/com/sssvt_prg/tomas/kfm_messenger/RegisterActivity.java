@@ -1,11 +1,13 @@
 package com.sssvt_prg.tomas.kfm_messenger;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.concurrent.ExecutionException;
@@ -17,12 +19,21 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+
+        Button register_register_button=(Button)findViewById(R.id.register_register_button);
+        register_register_button.setBackgroundColor(LoginActivity.newColor);
+        register_register_button.setTextColor(Color.WHITE);
+        TextView register_register_textView=(TextView)findViewById(R.id.register_register_textView);
+        register_register_textView.setTextColor(LoginActivity.newColor);
+        Button login_register_button=(Button)findViewById(R.id.login_register_button);
+        login_register_button.setTextColor(LoginActivity.newColor);
+
         final EditText email_register_edittext = (EditText) findViewById(R.id.email_register_editText);
         final EditText password_register_edittext = (EditText) findViewById(R.id.password_register_editText);
         final EditText name_register_edittext = (EditText) findViewById(R.id.name_register_editText);
         final EditText surname_register_edittext = (EditText) findViewById(R.id.surname_register_editText);
 
-        Button login_register_button = (Button)findViewById(R.id.login_register_button);
+        //Button login_register_button = (Button)findViewById(R.id.login_register_button);
         login_register_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -32,7 +43,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        Button register_register_button = (Button) findViewById(R.id.register_register_button);
+        //Button register_register_button = (Button) findViewById(R.id.register_register_button);
         register_register_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
