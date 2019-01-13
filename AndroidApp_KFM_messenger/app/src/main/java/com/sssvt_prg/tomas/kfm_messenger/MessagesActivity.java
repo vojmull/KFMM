@@ -28,6 +28,7 @@ public class MessagesActivity extends AppCompatActivity {
 
     public static List <String> names = new ArrayList<String>();
     public static List <String> surnames = new ArrayList<String>();
+    public static List <String> chatnames = new ArrayList<String>();
     List <String> messages= new ArrayList<String>();
     List <String> times = new ArrayList<String>();
     List <Integer> imagesId = new ArrayList<Integer>();
@@ -47,6 +48,7 @@ public class MessagesActivity extends AppCompatActivity {
 
         names = new ArrayList<>();
         surnames= new ArrayList<>();
+        chatnames = new ArrayList<>();
         messages= new ArrayList<>();
         times= new ArrayList<>();
         imagesId= new ArrayList<>();
@@ -75,7 +77,8 @@ public class MessagesActivity extends AppCompatActivity {
 
                     names.add(jsonObject.optString("Name"));
                     surnames.add(jsonObject.optString("Surname"));
-                    times.add(jsonObject.optString("LastMessageSent"));
+                    chatnames.add(jsonObject.optString("ChatName"));
+                    times.add(jsonObject.optString("LastMessageSentAt"));
                     imagesId.add(R.drawable.ic_launcher_background);
                     conversationsId.add(jsonObject.optString("Id"));
                 }

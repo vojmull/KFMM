@@ -7,21 +7,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
 
 public class CustomListView_conversations extends BaseAdapter {
     private List<String> conversations;
-    private List<String> seen;
-    private List<String> delievered;
+    private List<Boolean> seen;
+    private List<Boolean> delievered;
     private List<String> times;
     private List<String> authors;
     private Activity context;
 
     LayoutInflater mInflater;
 
-    public CustomListView_conversations(@NonNull Context context, List<String> conversations, List<String> delievered, List<String> seen, List<String> times, List<String> authors) {
+    public CustomListView_conversations(@NonNull Context context, List<String> conversations, List<Boolean> delievered, List<Boolean> seen, List<String> times, List<String> authors) {
         //super(context,R.layout.conversation_listview_detail);
 
         this.context = (Activity) context;
@@ -63,6 +64,7 @@ public class CustomListView_conversations extends BaseAdapter {
 
         TextView conversationTV = (TextView) v.findViewById(R.id.message_detail_textView);
         TextView timeTV = (TextView) v.findViewById(R.id.time_detail_textView);
+        ImageView imageIV = (ImageView) v.findViewById(R.id.seen_detail_imageView);
 
         String conv = conversations.get(position);
         String tim = times.get(position);
@@ -70,6 +72,16 @@ public class CustomListView_conversations extends BaseAdapter {
 
         conversationTV.setText(conv);
         timeTV.setText(tim);
+
+
+        if(seen.get(position)==true)
+        {
+            imageIV.setImageResource(R.drawable.seen);
+        }
+        else if(delievered.get(position)==true ||delievered.get(position)==false){
+            imageIV.setImageResource(R.drawable.delievered);
+        }
+
 
         return v;
     }

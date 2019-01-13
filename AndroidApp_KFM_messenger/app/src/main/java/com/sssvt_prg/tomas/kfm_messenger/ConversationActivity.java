@@ -40,8 +40,8 @@ public class ConversationActivity extends AppCompatActivity {
         ListView conversation_listView;
 
         final List<String> conversations = new ArrayList<String>();
-        List<String> seen = new ArrayList<String>();
-        List<String> delievered = new ArrayList<String>();
+        List<Boolean> seen = new ArrayList<Boolean>();
+        List<Boolean> delievered = new ArrayList<Boolean>();
         List<String> times = new ArrayList<String>();
         List<String> authors = new ArrayList<String>();
 
@@ -54,7 +54,8 @@ public class ConversationActivity extends AppCompatActivity {
 
         TextView messages_user = (TextView) findViewById(R.id.userName_textView);
 
-        messages_user.setText(MessagesActivity.names.get(index)+" "+MessagesActivity.surnames.get(index));
+        //messages_user.setText(MessagesActivity.names.get(index)+" "+MessagesActivity.surnames.get(index));
+        messages_user.setText(MessagesActivity.chatnames.get(index));
 
 
 
@@ -73,8 +74,8 @@ public class ConversationActivity extends AppCompatActivity {
                 {
                     JSONObject jsonObject = jArray.getJSONObject(i);
                     conversations.add(jsonObject.optString("Content"));
-                    seen.add(jsonObject.optString("Seen"));
-                    delievered.add(jsonObject.optString("Delievered"));
+                    seen.add(jsonObject.optBoolean("Seen"));
+                    delievered.add(jsonObject.optBoolean("Delievered"));
                     times.add(jsonObject.optString("TimeSent"));
                     authors.add(jsonObject.optString("IdAuthor"));
                 }
@@ -113,8 +114,8 @@ public class ConversationActivity extends AppCompatActivity {
                     ListView conversation_listView;
 
                     List<String> conversations = new ArrayList<String>();
-                    List<String> seen = new ArrayList<String>();
-                    List<String> delievered = new ArrayList<String>();
+                    List<Boolean> seen = new ArrayList<Boolean>();
+                    List<Boolean> delievered = new ArrayList<Boolean>();
                     List<String> times = new ArrayList<String>();
                     List<String> authors = new ArrayList<String>();
 
@@ -123,6 +124,8 @@ public class ConversationActivity extends AppCompatActivity {
                         response2 = response2.substring(1,response2.length()-1);
                         response2 = response2.replace("\\","");
                         JSONArray jArray = null;
+
+                        String response3 = new SendGetConfirmConversationRead().execute(idMessage).get();
                         try {
                             jArray = new JSONArray(response2);
                         } catch (JSONException e) {
@@ -133,8 +136,8 @@ public class ConversationActivity extends AppCompatActivity {
                             {
                                 JSONObject jsonObject = jArray.getJSONObject(i);
                                 conversations.add(jsonObject.optString("Content"));
-                                seen.add(jsonObject.optString("Seen"));
-                                delievered.add(jsonObject.optString("Delievered"));
+                                seen.add(jsonObject.optBoolean("Seen"));
+                                delievered.add(jsonObject.optBoolean("Delievered"));
                                 times.add(jsonObject.optString("TimeSent"));
                                 authors.add(jsonObject.optString("IdAuthor"));
                             }
@@ -170,8 +173,8 @@ public class ConversationActivity extends AppCompatActivity {
                 ListView conversation_listView;
 
                 List<String> conversations = new ArrayList<String>();
-                List<String> seen = new ArrayList<String>();
-                List<String> delievered = new ArrayList<String>();
+                List<Boolean> seen = new ArrayList<Boolean>();
+                List<Boolean> delievered = new ArrayList<Boolean>();
                 List<String> times = new ArrayList<String>();
                 List<String> authors = new ArrayList<String>();
 
@@ -190,8 +193,8 @@ public class ConversationActivity extends AppCompatActivity {
                         {
                             JSONObject jsonObject = jArray.getJSONObject(i);
                             conversations.add(jsonObject.optString("Content"));
-                            seen.add(jsonObject.optString("Seen"));
-                            delievered.add(jsonObject.optString("Delievered"));
+                            seen.add(jsonObject.optBoolean("Seen"));
+                            delievered.add(jsonObject.optBoolean("Delievered"));
                             times.add(jsonObject.optString("TimeSent"));
                             authors.add(jsonObject.optString("IdAuthor"));
                         }

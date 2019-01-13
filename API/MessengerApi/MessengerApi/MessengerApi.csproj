@@ -209,6 +209,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\AppColorController.cs" />
     <Compile Include="Controllers\GroupMessagesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
@@ -221,6 +222,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AppColors.cs" />
     <Compile Include="Models\ChatGroupMembers.cs" />
     <Compile Include="Models\ChatGroups.cs" />
     <Compile Include="Models\Conversations.cs" />
@@ -291,6 +293,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\AppColor\" />
     <Folder Include="Views\NewInitializationToken\" />
     <Folder Include="Views\NewToken\" />
     <Folder Include="Views\RegisterUser\" />
