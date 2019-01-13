@@ -2,6 +2,7 @@ package com.sssvt_prg.tomas.kfm_messenger;
 
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -25,6 +26,17 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+
+        try {
+            String response = new SendGetColor().execute().get();
+            response = response.substring(1,response.length()-2);
+            LoginActivity.newColor = Color.parseColor("#"+response);
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(LoginActivity.newColor));
 

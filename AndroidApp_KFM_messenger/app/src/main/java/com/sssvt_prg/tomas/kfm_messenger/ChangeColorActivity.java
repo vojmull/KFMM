@@ -12,6 +12,8 @@ import com.skydoves.colorpickerpreference.ColorEnvelope;
 import com.skydoves.colorpickerpreference.ColorListener;
 import com.skydoves.colorpickerpreference.ColorPickerView;
 
+import java.util.concurrent.ExecutionException;
+
 public class ChangeColorActivity extends AppCompatActivity {
 
     @Override
@@ -41,6 +43,15 @@ public class ChangeColorActivity extends AppCompatActivity {
             public void onColorSelected(ColorEnvelope colorEnvelope) {
 
                 LoginActivity.newColor = colorEnvelope.getColor();
+
+                SendPostColor spc = new SendPostColor();
+                try {
+                    String response = spc.execute("IdUser="+LoginActivity.UserID+"&Color="+colorEnvelope.getColorHtml()).get();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
 
 
             }
