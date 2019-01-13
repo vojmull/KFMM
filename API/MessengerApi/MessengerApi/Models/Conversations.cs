@@ -17,10 +17,20 @@ namespace MessengerApi.Models
         [NotMapped]
         public string LastMessage { get; set; }
         [NotMapped]
-        public string LastMessageSent { get; set; }
+        public string LastMessageSentAt { get; set; }
+        [NotMapped]
+        public bool LastMessageSent { get; set; }
+        [NotMapped]
+        public int IdLastMessageAuthor { get; set; }
         [NotMapped]
         public string ChatName { get; set; }
         [NotMapped]
+        public string Name { get; set; }
+        [NotMapped]
+        public string Surname { get; set; }
+        [NotMapped]
         public string ImageServerPath { get; set; }
+        [NotMapped]
+        public bool LastMessageRead { get; set; }
     }
 }

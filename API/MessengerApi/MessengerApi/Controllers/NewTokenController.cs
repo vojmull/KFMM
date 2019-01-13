@@ -12,6 +12,7 @@ namespace MessengerApi.Controllers
 {
     public class NewTokenController : ApiController
     {
+        public dbContext _database = new dbContext();
 
         [System.Web.Http.Route("api/newtoken/user")]
         [System.Web.Http.HttpPost]
@@ -39,7 +40,24 @@ namespace MessengerApi.Controllers
                             Token newToken = Token.GenerateNewTokenForUser(Convert.ToInt32(reader["Id"]));
 
                             if (newToken != null)
-                                response = newToken.Value + "/" + reader["Id"];
+                            {
+                                int idUser = Convert.ToInt32(reader["Id"]);
+                                response = newToken.Value + "/" + idUser;
+
+                                var eQuery = from m in this._database.Messages
+                                             join c in this._database.Conversations
+                                             on m.IdConversation equals c.Id
+                                             join p in this._database.Participants
+                                             on c.Id equals p.IdConversation
+                                             where p.IdUser == idUser && m.IdAuthor != idUser
+                                             select m;
+
+                                foreach (Messages item in eQuery.ToList<Messages>())
+                                {
+                                    item.Delievered = true;
+                                }
+                                this._database.SaveChanges();
+                            }
                             else
                                 response = "TokenGenerationFailed";
                         }
@@ -57,5 +75,5 @@ namespace MessengerApi.Controllers
 
             return response;
         }
-}
+    }
 }

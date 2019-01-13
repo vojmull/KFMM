@@ -48,16 +48,22 @@ namespace MessengerApi.Controllers
             {
                 Messages lastMessage = this._database.Messages.Where(m => m.IdConversation == item.Id).OrderByDescending(m => m.TimeSent).FirstOrDefault();
                 item.LastMessage = lastMessage.Content;
-                item.LastMessageSent = lastMessage.TimeSent;
+                item.LastMessageSentAt = lastMessage.TimeSent;
+                item.LastMessageSent = lastMessage.Sent;
+                item.LastMessageRead = lastMessage.Seen;
+                item.IdLastMessageAuthor = lastMessage.IdAuthor;
 
-                Participants par = this._database.Participants.Where(p => p.IdConversation == item.Id && userId != p.IdUser).FirstOrDefault();
+                List<Participants> par = this._database.Participants.Where(p => p.IdConversation == item.Id && userId != p.IdUser).ToList();
+                int idParticipant = par[0].IdUser;
 
-                Users user = this._database.Users.Where(u => u.Id == par.IdUser).FirstOrDefault();
-                item.ChatName = (user == null) ? "Group" : $"{user.Name} {user.Surname}";
+                Users user = this._database.Users.Where(u => u.Id == idParticipant).FirstOrDefault();
+                item.ChatName = (par.Count > 1) ? "Group" : $"{user.Name} {user.Surname}";
+                item.Name = user.Name;
+                item.Surname = user.Surname;
                 item.ImageServerPath = user.ImageServerPath;
             }
 
-            return JsonConvert.SerializeObject(Conversations);
+            return JsonConvert.SerializeObject(Conversations.OrderByDescending(c => c.LastMessageSentAt));
         }
 
         [System.Web.Http.Route("api/messages/getimage/{token}-{imgPath}")]
@@ -144,6 +150,26 @@ namespace MessengerApi.Controllers
             this._database.SaveChanges();
 
             return "ok";
+        }
+
+        [System.Web.Http.Route("api/messages/messageread/{token}-{userId}-{conversationId}")]
+        [System.Web.Http.HttpGet]
+        public string ConfirmConversationRead(string token, int userId, int conversationId)
+        {
+            Token t = Token.Exists(token);
+            if (t == null || !t.IsUser)
+            {
+                return "ERROR";
+            }
+
+            foreach (Messages item in this._database.Messages.Where(m => m.IdConversation == conversationId && !m.Seen && m.IdAuthor != userId))
+            {
+                item.Seen = true;
+            }
+
+            this._database.SaveChanges();
+
+            return "OK";
         }
     }
 }
