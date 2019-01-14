@@ -4,12 +4,13 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace MessengerApi
+namespace MessengerApi.Models
 {
-    public class Friendships
+    public class FriendshipMembers
     {
         [Key]
         public int Id { get; set; }
-        public string TimeCreated { get; set; }
+        public int IdUser { get; set; }
+        public int IdFriendship { get; set; }
     }
 }

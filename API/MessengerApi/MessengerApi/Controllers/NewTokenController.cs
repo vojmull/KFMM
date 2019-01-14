@@ -67,7 +67,7 @@ namespace MessengerApi.Controllers
                     else
                         response = "BadUserName";
                 }
-                catch (Exception)
+               catch (Exception)
                 {
                     response = "ConnectionWithDatabaseProblem";
                 }

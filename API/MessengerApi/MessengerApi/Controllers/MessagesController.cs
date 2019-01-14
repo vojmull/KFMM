@@ -113,7 +113,7 @@ namespace MessengerApi.Controllers
                         where c.Id == conversationId
                         select m;
 
-            return JsonConvert.SerializeObject(query.OrderBy(m => m.Id).Take(messagesCnt).ToList());
+            return JsonConvert.SerializeObject(query.OrderByDescending(m => m.Id).Take(messagesCnt).OrderBy(m => m.Id).ToList());
         }
 
         [System.Web.Http.Route("api/messages/postmessage/{token}-{userId}-{conversationId}")]
@@ -131,7 +131,6 @@ namespace MessengerApi.Controllers
                 //token nepatří userovi
                 return "ERROR";
             }
-
 
             Messages m = new Messages()
             {
@@ -170,6 +169,25 @@ namespace MessengerApi.Controllers
             this._database.SaveChanges();
 
             return "OK";
+        }
+
+        [System.Web.Http.Route("api/messages/getuserinfo/{token}-{userId}-{conversationId}")]
+        [System.Web.Http.HttpGet]
+        public string GetUserInfo(string token, int userId, int conversationId)
+        {
+            Token t = Token.Exists(token);
+            if (t == null || !t.IsUser)
+            {
+                return "ERROR";
+            }
+
+            var query = from c in this._database.Conversations
+                        join p in this._database.Participants
+                        on c.Id equals p.IdConversation
+                        where p.Id != userId && c.Id == conversationId
+                        select c;
+
+            return JsonConvert.SerializeObject(query.FirstOrDefault());
         }
     }
 }

@@ -12,8 +12,8 @@ namespace MessengerApi.Models
         public int Id { get; set; }
         public int IdUserRequestor { get; set; }
         public int IdUser2 { get; set; }
-        public DateTime TimeSent { get; set; }
+        public string TimeSent { get; set; }
         public bool Accepted { get; set; }
-        public DateTime RequestExpiration { get; set; }
+        public string RequestExpiration { get; set; }
     }
 }
