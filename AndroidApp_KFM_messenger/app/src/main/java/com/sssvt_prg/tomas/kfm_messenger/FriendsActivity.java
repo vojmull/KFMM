@@ -17,13 +17,17 @@ public class FriendsActivity extends AppCompatActivity {
 
     ListView friends_listview;
     Integer[] imagesId={R.drawable.ic_launcher_background,R.drawable.ic_home_black_24dp,R.drawable.ic_home_black_24dp,R.drawable.ic_home_black_24dp,R.drawable.ic_home_black_24dp,R.drawable.ic_home_black_24dp,R.drawable.ic_home_black_24dp};
-    String[] names={"Pepa","Tomáš","Tomáš","Tomáš","Tomáš","Tomáš","Tomáš"};
-    String[] surnames={"Novak","Okurka","Okurka","Okurka","Okurka","Okurka","Okurka"};
-
+    //List<String> names = new ArrayList<String>();//={"Pepa","Tomáš","Tomáš","Tomáš","Tomáš","Tomáš","Tomáš"};
+    //List<String> surnames = new ArrayList<String>();//={"Novak","Okurka","Okurka","Okurka","Okurka","Okurka","Okurka"};
+    String[] names ={"Pepa","Tomáš","Tomáš","Tomáš","Tomáš","Tomáš","Tomáš"};
+    String[] surnames ={"Novak","Okurka","Okurka","Okurka","Okurka","Okurka","Okurka"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends);
+
+        //names = new ArrayList<String>();
+        //surnames = new ArrayList<String>();
 
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(LoginActivity.newColor));
 
@@ -36,8 +40,37 @@ public class FriendsActivity extends AppCompatActivity {
         add_friends_button.setBackgroundColor(LoginActivity.newColor);
         //Button chat_friends_listview_button=(Button)findViewById(R.id.chat_friends_listview_button);
         //chat_friends_listview_button.setBackgroundColor(LoginActivity.newColor);
+/*
+        try {
+            String response = new SendGetFriends().execute().get();
+            response = response.substring(1,response.length()-1);
+            response = response.replace("\\","");
+            JSONArray jArray = null;
+            try {
+                jArray = new JSONArray(response);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            try {
+                assert jArray != null;
+                for(int i = 0; i<jArray.length(); i++)
+                {
+                    JSONObject jsonObject = jArray.getJSONObject(i);
 
+                    names.add(jsonObject.optString("Name"));
+                    surnames.add(jsonObject.optString("Surname"));
 
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+*/
         friends_listview=(ListView)findViewById(R.id.friends_listview);
         CustomListView_friends customListView_friends = new CustomListView_friends(this,surnames,names,imagesId);
         friends_listview.setAdapter(customListView_friends);

@@ -39,7 +39,7 @@
 
     <TextView
         android:id="@+id/name_friends_textView"
-        android:layout_width="wrap_content"
+        android:layout_width="82dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginStart="18dp"
@@ -52,7 +52,7 @@
 
     <TextView
         android:id="@+id/surname_friends_textView"
-        android:layout_width="wrap_content"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/name_friends_textView"
         android:layout_alignParentTop="true"
@@ -61,8 +61,8 @@
         android:layout_marginStart="3dp"
         android:layout_marginLeft="3dp"
         android:layout_marginTop="6dp"
-        android:layout_marginEnd="116dp"
-        android:layout_marginRight="116dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginRight="45dp"
         android:layout_marginBottom="0dp"
         android:layout_toEndOf="@+id/name_friends_textView"
         android:layout_toRightOf="@+id/name_friends_textView"

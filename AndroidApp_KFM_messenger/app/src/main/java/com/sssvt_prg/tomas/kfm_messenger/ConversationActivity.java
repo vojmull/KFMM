@@ -29,6 +29,9 @@ public class ConversationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_conversation);
 
 
+
+
+
         Window window = this.getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -63,6 +66,9 @@ public class ConversationActivity extends AppCompatActivity {
             String response = new SendGetConversations().execute(idMessage).get();
             response = response.substring(1,response.length()-1);
             response = response.replace("\\","");
+
+            String response3 = new SendGetConfirmConversationRead().execute(idMessage).get();
+
             JSONArray jArray = null;
             try {
                 jArray = new JSONArray(response);
@@ -126,6 +132,7 @@ public class ConversationActivity extends AppCompatActivity {
                         JSONArray jArray = null;
 
                         String response3 = new SendGetConfirmConversationRead().execute(idMessage).get();
+
                         try {
                             jArray = new JSONArray(response2);
                         } catch (JSONException e) {
@@ -165,6 +172,8 @@ public class ConversationActivity extends AppCompatActivity {
             }
         });
 
+
+
         //Button reload_conversation_button = (Button) findViewById(R.id.reload_conversation_button);
         reload_conversation_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -182,6 +191,9 @@ public class ConversationActivity extends AppCompatActivity {
                     String response = new SendGetConversations().execute(idMessage).get();
                     response = response.substring(1,response.length()-1);
                     response = response.replace("\\","");
+
+                    String response3 = new SendGetConfirmConversationRead().execute(idMessage).get();
+
                     JSONArray jArray = null;
                     try {
                         jArray = new JSONArray(response);
@@ -214,5 +226,60 @@ public class ConversationActivity extends AppCompatActivity {
                 conversation_listView.setAdapter(customListView_conversations);
             }
         });
+/*
+        //timer reload
+
+        Timer timer = new Timer();
+        TimerTask t = new TimerTask() {
+            @Override
+            public void run() {
+                ListView conversation_listView;
+
+                List<String> conversations = new ArrayList<String>();
+                List<Boolean> seen = new ArrayList<Boolean>();
+                List<Boolean> delievered = new ArrayList<Boolean>();
+                List<String> times = new ArrayList<String>();
+                List<String> authors = new ArrayList<String>();
+
+                try {
+                    String response = new SendGetConversations().execute(idMessage).get();
+                    response = response.substring(1,response.length()-1);
+                    response = response.replace("\\","");
+
+                    String response3 = new SendGetConfirmConversationRead().execute(idMessage).get();
+
+                    JSONArray jArray = null;
+                    try {
+                        jArray = new JSONArray(response);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        for(int i=0;i<jArray.length();i++)
+                        {
+                            JSONObject jsonObject = jArray.getJSONObject(i);
+                            conversations.add(jsonObject.optString("Content"));
+                            seen.add(jsonObject.optBoolean("Seen"));
+                            delievered.add(jsonObject.optBoolean("Delievered"));
+                            times.add(jsonObject.optString("TimeSent"));
+                            authors.add(jsonObject.optString("IdAuthor"));
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                conversation_listView = (ListView) findViewById(R.id.conversation_listView);
+                CustomListView_conversations customListView_conversations = new CustomListView_conversations(ConversationActivity.this,conversations,delievered,seen,times,authors);
+                conversation_listView.setAdapter(customListView_conversations);
+            }
+        };
+        timer.scheduleAtFixedRate(t,1000,1000);*/
     }
 }
