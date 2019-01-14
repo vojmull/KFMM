@@ -113,6 +113,11 @@ namespace MessengerApi.Controllers
                         where c.Id == conversationId
                         select m;
 
+            foreach (Messages item in query.ToList())
+            {
+                item.AuthorName = this._database.Users.Where(u => u.Id == item.IdAuthor).Select(u => u.Name + " " + u.Surname).FirstOrDefault().ToString();
+            }
+
             return JsonConvert.SerializeObject(query.OrderByDescending(m => m.Id).Take(messagesCnt).OrderBy(m => m.Id).ToList());
         }
 

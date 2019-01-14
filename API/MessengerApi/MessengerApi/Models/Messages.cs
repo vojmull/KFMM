@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -21,5 +22,8 @@ namespace MessengerApi
         public string TimeDelievered { get; set; }
         public string TimeSeen { get; set; }
         public bool Edited { get; set; }
+
+        [NotMapped]
+        public string AuthorName { get; set; }
     }
 }
