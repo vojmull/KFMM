@@ -218,6 +218,7 @@
     <Compile Include="Controllers\NewTokenController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\RegisterUserController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="App_Data\dbContext.cs" />
     <Compile Include="Global.asax.cs">

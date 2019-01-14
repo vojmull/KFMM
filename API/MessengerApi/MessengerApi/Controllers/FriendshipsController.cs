@@ -120,7 +120,7 @@ namespace MessengerApi.Controllers
         //                on fr.Id equals fm.IdFriendship
         //                join us in this._database.Users
         //                on fm.IdUser equals us.Id
-        //                where fm.IdUser == userId && us.Id != userId
+        //                where fm.IdUser == userId
         //                select us;
 
         //    List<Users> friends = query.ToList<Users>();

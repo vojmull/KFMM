@@ -151,6 +151,62 @@ namespace MessengerApi.Controllers
             return "ok";
         }
 
+        [System.Web.Http.Route("api/messages/startconversation/{token}-{userId}-{userToId}")]
+        [System.Web.Http.HttpPost]
+        public string StartNewConversation(string token, int userId, int userToId, [FromBody]string content)
+        {
+            Token t = Token.Exists(token);
+            if (t == null || !t.IsUser)
+            {
+                return "ERROR";
+            }
+
+            try
+            {
+                string now = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                this._database.Conversations.Add(new Conversations()
+                {
+                    TimeCreated = now
+                });
+                this._database.SaveChanges();
+
+                Conversations con = this._database.Conversations.Where(c => c.TimeCreated == now).First();
+                this._database.Participants.Add(new Participants()
+                {
+                    IdConversation = con.Id,
+                    IdUser = userId
+                });
+                this._database.Participants.Add(new Participants()
+                {
+                    IdConversation = con.Id,
+                    IdUser = userToId
+                });
+                this._database.SaveChanges();
+
+                Messages m = new Messages()
+                {
+                    Content = content,
+                    Delievered = false,
+                    Edited = false,
+                    IdAuthor = userId,
+                    IdConversation = con.Id,
+                    Seen = false,
+                    TimeSent = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                    TimeSeen = "",
+                    TimeDelievered = "",
+                };
+
+                this._database.Messages.Add(m);
+                this._database.SaveChanges();
+            }
+            catch
+            {
+                return "ERROR";
+            }
+
+            return "OK";
+        }
+
         [System.Web.Http.Route("api/messages/messageread/{token}-{userId}-{conversationId}")]
         [System.Web.Http.HttpGet]
         public string ConfirmConversationRead(string token, int userId, int conversationId)
