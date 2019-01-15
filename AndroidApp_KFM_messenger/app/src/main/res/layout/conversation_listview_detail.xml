@@ -6,16 +6,20 @@
 
     <TextView
         android:id="@+id/message_detail_textView"
-        android:layout_width="wrap_content"
+        android:layout_width="290dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="22dp"
-        android:layout_marginLeft="22dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
         android:layout_marginTop="17dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/rounded_corner"
         android:text="Message"
-        android:textSize="20sp" />
+        android:textSize="18sp" />
+
 
     <TextView
         android:id="@+id/time_detail_textView"
