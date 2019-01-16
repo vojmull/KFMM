@@ -15,11 +15,10 @@ namespace MessengerApi.Controllers
     {
         [System.Web.Http.Route("api/newuser")]
         [System.Web.Http.HttpPost]
-        public string Post([FromBody]string user)
+        public string Post([FromBody]Users userr)
         {
-            Users userr = JsonConvert.DeserializeObject<Users>(user);
+            //Users userr = JsonConvert.DeserializeObject<Users>(user);
             MySqlConnection Connection = WebApiConfig.Connection();
-            string r = "";
 
 
             MySqlCommand QuerySelectUser = Connection.CreateCommand();
@@ -44,7 +43,7 @@ namespace MessengerApi.Controllers
                 if (UserEmail == userr.Email)
                 {
                     Connection.Close();
-                    return r = "WrongEmail";
+                    return "WrongEmail";
                 }
                    
 
@@ -65,15 +64,13 @@ namespace MessengerApi.Controllers
             }
             catch (MySql.Data.MySqlClient.MySqlException ex)
             {
-                r = "ConnectionWithDatabaseProblem";
+                return "ConnectionWithDatabaseProblem";
             }
             
 
             Connection.Close();
 
-            r = "OK";
-
-            return r;
+            return "OK";
         }
     }
 }
