@@ -23,7 +23,16 @@ namespace MessengerApi.Controllers
                 return "TokenERROR";
             }
 
-            List<Users> toRet = this._database.Users.ToList();
+            List<Users> toRet = new List<Users>();
+
+            try
+            {
+                toRet = this._database.Users.ToList();
+            }
+            catch (MySql.Data.MySqlClient.MySqlException ex)
+            {
+                return "ConnectionWithDatabaseProblem";
+            }
 
             foreach (Users item in toRet)
             {
