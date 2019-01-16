@@ -12,7 +12,7 @@ namespace MessengerApi
         public static MySqlConnection Connection()
         {
             
-            string connection_string = "server=157.230.25.117;uid=novejboi;pwd=Epizeuxisjenovyheslo69;database=kfmmmessenger";
+            string connection_string = "server=mysqlstudenti.litv.sssvt.cz;uid=faicdavid;pwd=123456;database=3b2_faicdavid_db2";
             MySqlConnection Connection = new MySqlConnection(connection_string);
 
             return Connection;

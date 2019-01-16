@@ -72,24 +72,12 @@ namespace MessengerApi.Controllers
                     string now = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                     Friendships friendship = new Friendships()
                     {
-                        TimeCreated = now
+                        TimeCreated = now,
+                        IdUser1 = userId,
+                        IdUser2 = requestorUserId
                     };
 
                     this._database.Friendships.Add(friendship);
-                    this._database.SaveChanges();
-
-                    friendship = this._database.Friendships.Where(f => f.TimeCreated == now).FirstOrDefault();
-
-                    this._database.FriendshipMembers.Add(new FriendshipMembers() {
-                        IdFriendship = friendship.Id,
-                        IdUser = userId
-                    });
-                    this._database.FriendshipMembers.Add(new FriendshipMembers()
-                    {
-                        IdFriendship = friendship.Id,
-                        IdUser = requestorUserId
-                    });
-
                     this._database.SaveChanges();
                 }
             }
@@ -101,31 +89,80 @@ namespace MessengerApi.Controllers
             return toRet;
         }
 
-        ////Vraceni vsech svych pratel
-        //[System.Web.Http.Route("api/friends/{token}-{userId}")]
-        //[System.Web.Http.HttpGet]
-        //public string GetFriends(string token, int userId)
-        //{
-        //    string toRet = "OK";
+        //Vraceni vsech svych pratel
+        [System.Web.Http.Route("api/friends/{token}-{userId}")]
+        [System.Web.Http.HttpGet]
+        public string GetFriends(string token, int userId)
+        {
+            string toRet = "OK";
 
-        //    Token t = Token.Exists(token);
-        //    if (t == null || !t.IsUser)
-        //    {
-        //        return "TokenERROR";
-        //    }
+            Token t = Token.Exists(token);
+            if (t == null || !t.IsUser)
+            {
+                return "TokenERROR";
+            }
 
-        //    //List<Users> friends = this.data
-        //    var query = from fr in this._database.Friendships
-        //                join fm in this._database.FriendshipMembers
-        //                on fr.Id equals fm.IdFriendship
-        //                join us in this._database.Users
-        //                on fm.IdUser equals us.Id
-        //                where fm.IdUser == userId
-        //                select us;
+            try
+            {
+                List<Users> colToRet = new List<Users>();
 
-        //    List<Users> friends = query.ToList<Users>();
+                var query = from fr in this._database.Friendships
+                            join us in this._database.Users
+                            on fr.IdUser1 equals us.Id
+                            where fr.IdUser2 == userId
+                            select us;
 
-        //    return JsonConvert.SerializeObject(friends);
-        //}
+                foreach (Users item in query.ToList<Users>())
+                {
+                    item.Password = "";
+                    if (item.Id != userId)
+                        colToRet.Add(item);
+                }
+
+                query = from fr in this._database.Friendships
+                        join us in this._database.Users
+                        on fr.IdUser2 equals us.Id
+                        where fr.IdUser1 == userId
+                        select us;
+
+                foreach (Users item in query.ToList<Users>())
+                {
+                    item.Password = "";
+                    if (item.Id != userId)
+                        colToRet.Add(item);
+                }
+
+                return JsonConvert.SerializeObject(colToRet.Distinct());
+            }
+            catch
+            {
+                return "ERROR";
+            }
+        }
+
+        //Odebrani pritele z pratel
+        [System.Web.Http.Route("api/friends/remove/{token}-{userId}-{userToRemove}")]
+        [System.Web.Http.HttpGet]
+        public string RemoveFriend(string token, int userId, int userToRemove)
+        {
+            string toRet = "OK";
+
+            Token t = Token.Exists(token);
+            if (t == null || !t.IsUser)
+            {
+                return "TokenERROR";
+            }
+
+            Friendships fr = this._database.Friendships.Where(f => (f.IdUser1 == userId && f.IdUser2 == userToRemove) || (f.IdUser1 == userToRemove && f.IdUser2 == userId)).FirstOrDefault();
+
+            if (fr == null)
+                return "FriendshipDoesntExists";
+            else
+            {
+                this._database.Friendships.Remove(fr);
+                this._database.SaveChanges();
+                return "OK";
+            }
+        }
     }
 }

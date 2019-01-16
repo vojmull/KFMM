@@ -8,20 +8,26 @@ using System.Web;
 using System.Web.Http;
 using MessengerApi.Models;
 using Newtonsoft.Json;
+using MessengerApi.Utilities;
 
 namespace MessengerApi.Controllers
 {
     public class MessagesController : ApiController
     {
         private dbContext _database = new dbContext();
+        private CheckOnlineUtility onlineUtility = new CheckOnlineUtility();
+
         //D:\vojta\Knihovny\Desktop\git_desktop\KFMM\API\MessengerApi\MessengerApi
         private string _imgStorage = @"D:\vojta\Knihovny\Desktop\git_desktop\KFMM\API\MessengerApi\MessengerApi" + "/_imgStorage/";
 
         // Vraci posledních X konverzaci (parametr) s obsahem jedne (posledni zpravy) => pro prehled vsech konverzaci
+        // trigger pro byti online
         [System.Web.Http.Route("api/messages/{token}-{userId}-{conversationCnt}")]
         [System.Web.Http.HttpGet]
         public string GetConversations(string token, int userId, int conversationCnt)
         {
+            this.onlineUtility.ConfirmOnlineStatus(userId);
+
             Token t = Token.Exists(token);
             if (t == null)
             {
