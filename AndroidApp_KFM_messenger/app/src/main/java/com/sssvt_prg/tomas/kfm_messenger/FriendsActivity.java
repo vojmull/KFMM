@@ -8,19 +8,28 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ListView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+
 public class FriendsActivity extends AppCompatActivity {
 
     ListView friends_listview;
     Integer[] imagesId={R.drawable.ic_launcher_background,R.drawable.ic_home_black_24dp,R.drawable.ic_home_black_24dp,R.drawable.ic_home_black_24dp,R.drawable.ic_home_black_24dp,R.drawable.ic_home_black_24dp,R.drawable.ic_home_black_24dp};
-    //List<String> names = new ArrayList<String>();//={"Pepa","Tomáš","Tomáš","Tomáš","Tomáš","Tomáš","Tomáš"};
-    //List<String> surnames = new ArrayList<String>();//={"Novak","Okurka","Okurka","Okurka","Okurka","Okurka","Okurka"};
-    String[] names ={"Pepa","Tomáš","Tomáš","Tomáš","Tomáš","Tomáš","Tomáš"};
-    String[] surnames ={"Novak","Okurka","Okurka","Okurka","Okurka","Okurka","Okurka"};
+    List<String> names = new ArrayList<String>();//={"Pepa","Tomáš","Tomáš","Tomáš","Tomáš","Tomáš","Tomáš"};
+    List<String> surnames = new ArrayList<String>();//={"Novak","Okurka","Okurka","Okurka","Okurka","Okurka","Okurka"};
+    //String[] names ={"Pepa","Tomáš","Tomáš","Tomáš","Tomáš","Tomáš","Tomáš"};
+    //String[] surnames ={"Novak","Okurka","Okurka","Okurka","Okurka","Okurka","Okurka"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +49,17 @@ public class FriendsActivity extends AppCompatActivity {
         add_friends_button.setBackgroundColor(LoginActivity.newColor);
         //Button chat_friends_listview_button=(Button)findViewById(R.id.chat_friends_listview_button);
         //chat_friends_listview_button.setBackgroundColor(LoginActivity.newColor);
-/*
+
+        add_friends_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            Intent manageFriends = new Intent(FriendsActivity.this, ManageFriendsActivity.class);
+            startActivity(manageFriends);
+        }
+        });
+
+
         try {
             String response = new SendGetFriends().execute().get();
             response = response.substring(1,response.length()-1);
@@ -70,7 +89,7 @@ public class FriendsActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-*/
+
         friends_listview=(ListView)findViewById(R.id.friends_listview);
         CustomListView_friends customListView_friends = new CustomListView_friends(this,surnames,names,imagesId);
         friends_listview.setAdapter(customListView_friends);

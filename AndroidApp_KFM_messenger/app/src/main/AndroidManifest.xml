@@ -44,7 +44,10 @@
         <activity
             android:name=".ConversationActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ChangeColorActivity"
+        <activity
+            android:name=".ChangeColorActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".ManageFriendsActivity"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>

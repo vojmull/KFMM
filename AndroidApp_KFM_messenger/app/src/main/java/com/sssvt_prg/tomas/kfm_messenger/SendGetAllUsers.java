@@ -11,12 +11,12 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class SendGetFriends extends AsyncTask<String, String, String> {
+public class SendGetAllUsers extends AsyncTask<String, String, String> {
 
 
     protected String doInBackground(String... params) {
 
-        String apiurl = LoginActivity.AppUrl+"/api/friends/"+LoginActivity.Token+"-"+LoginActivity.UserID;
+        String apiurl = LoginActivity.AppUrl+"/api/users/"+LoginActivity.Token;
 
         HttpURLConnection connection = null;
         BufferedReader reader = null;

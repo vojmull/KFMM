@@ -12,15 +12,17 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.List;
+
 public class CustomListView_friends extends ArrayAdapter<String> {
 
     private Integer[] imagesId;
-    //private List<String> names;
-    //private List<String> surnames;
-    private String [] names;
-    private String []surnames;
+    private List<String> names;
+    private List<String> surnames;
+    //private String [] names;
+    //private String []surnames;
     private Activity context;
-    public CustomListView_friends(@NonNull Context context, String[] surnames,String[] names,Integer[] imagesId){
+    public CustomListView_friends(@NonNull Context context, List<String> surnames,List<String> names,Integer[] imagesId){
         super(context,R.layout.friends_litview_detail,names);
 
         this.context = (Activity) context;
@@ -46,11 +48,12 @@ public class CustomListView_friends extends ArrayAdapter<String> {
             viewHolder = (ViewHolder)r.getTag();
         }
         viewHolder.ivw.setImageResource(imagesId[position]);
-        //viewHolder.tvw1.setText(names.get(position));
-        //viewHolder.tvw2.setText(surnames.get(position));
-        viewHolder.tvw1.setText(names[position]);
-        viewHolder.tvw2.setText(surnames[position]);
+        viewHolder.tvw1.setText(names.get(position));
+        viewHolder.tvw2.setText(surnames.get(position));
+        //viewHolder.tvw1.setText(names[position]);
+        //viewHolder.tvw2.setText(surnames[position]);
         viewHolder.bchat.setBackgroundColor(LoginActivity.newColor);
+        // tady dat onClickListener na otevreni zpravy
 
 
         return r;
