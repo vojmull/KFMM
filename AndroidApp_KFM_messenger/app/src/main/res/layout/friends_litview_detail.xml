@@ -5,6 +5,27 @@
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <Button
+        android:id="@+id/delete_friends_listview_button2"
+        android:layout_width="wrap_content"
+        android:layout_height="38dp"
+        android:layout_below="@+id/name_friends_textView"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="113dp"
+        android:layout_marginLeft="113dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="27dp"
+        android:layout_marginRight="11dp"
+        android:layout_toLeftOf="@+id/block_friends_button"
+        android:layout_toEndOf="@+id/img_friends_imageView"
+        android:layout_toRightOf="@+id/img_friends_imageView"
+        android:background="@color/primaryColor"
+        android:text="Delete"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
         android:id="@+id/chat_friends_listview_button"
         android:layout_width="wrap_content"
         android:layout_height="38dp"

@@ -22,6 +22,7 @@ public class ManageFriendsActivity extends AppCompatActivity {
     Integer[] imagesId={R.drawable.ic_launcher_background,R.drawable.ic_home_black_24dp,R.drawable.ic_home_black_24dp,R.drawable.ic_home_black_24dp,R.drawable.ic_home_black_24dp,R.drawable.ic_home_black_24dp,R.drawable.ic_home_black_24dp};
     List<String> names = new ArrayList<String>();//={"Pepa","Tomáš","Tomáš","Tomáš","Tomáš","Tomáš","Tomáš"};
     List<String> surnames = new ArrayList<String>();//={"Novak","Okurka","Okurka","Okurka","Okurka","Okurka","Okurka"};
+    List<Integer> ids = new ArrayList<Integer>();
     //String[] names ={"Pepa","Tomáš","Tomáš","Tomáš","Tomáš","Tomáš","Tomáš"};
     //String[] surnames ={"Novak","Okurka","Okurka","Okurka","Okurka","Okurka","Okurka"};
 
@@ -44,6 +45,7 @@ public class ManageFriendsActivity extends AppCompatActivity {
 
                 names = new ArrayList<>();
                 surnames = new ArrayList<>();
+                ids = new ArrayList<Integer>();
 
                 try {
                     String response = new SendGetAllUsers().execute().get();
@@ -63,6 +65,7 @@ public class ManageFriendsActivity extends AppCompatActivity {
                             if ((jsonObject.optString("Name") + " " + jsonObject.optString("Surname")).equals(name) || name.equals("")) {
                                 names.add(jsonObject.optString("Name"));
                                 surnames.add(jsonObject.optString("Surname"));
+                                ids.add(jsonObject.optInt("Id"));
                             }
                         }
                     } catch (JSONException e) {
@@ -76,7 +79,7 @@ public class ManageFriendsActivity extends AppCompatActivity {
 
 
                 manageFriends_listview = (ListView) findViewById(R.id.manageFriends_listView);
-                CustomListView_manageFriends2 customListView_manageFriends2 = new CustomListView_manageFriends2(ManageFriendsActivity.this, surnames, names, imagesId);
+                CustomListView_manageFriends2 customListView_manageFriends2 = new CustomListView_manageFriends2(ManageFriendsActivity.this, surnames, names, imagesId,ids);
                 manageFriends_listview.setAdapter(customListView_manageFriends2);
             }
 
@@ -84,6 +87,7 @@ public class ManageFriendsActivity extends AppCompatActivity {
 
         names = new ArrayList<>();
         surnames= new ArrayList<>();
+        ids = new ArrayList<Integer>();
 
         try {
             String response = new SendGetAllUsers().execute().get();
@@ -103,6 +107,7 @@ public class ManageFriendsActivity extends AppCompatActivity {
 
                     names.add(jsonObject.optString("Name"));
                     surnames.add(jsonObject.optString("Surname"));
+                    ids.add(jsonObject.optInt("Id"));
 
                 }
             } catch (JSONException e) {
@@ -116,7 +121,7 @@ public class ManageFriendsActivity extends AppCompatActivity {
 
 
         manageFriends_listview=(ListView)findViewById(R.id.manageFriends_listView);
-        CustomListView_manageFriends2 customListView_manageFriends2 = new CustomListView_manageFriends2(this,surnames,names,imagesId);
+        CustomListView_manageFriends2 customListView_manageFriends2 = new CustomListView_manageFriends2(this,surnames,names,imagesId,ids);
         manageFriends_listview.setAdapter(customListView_manageFriends2);
     }
 }

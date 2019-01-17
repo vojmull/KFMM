@@ -7,6 +7,24 @@
     android:layout_height="match_parent"
     tools:context=".FriendsActivity">
 
+    <Button
+        android:id="@+id/requests_friends_button"
+        android:layout_width="97dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="164dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/primaryColor"
+        android:text="Friend requests"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toTopOf="@+id/friends_friends_textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.176"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.857" />
+
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="0dp"
@@ -33,10 +51,10 @@
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/friends_friends_textView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.43"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.857" />
 
     <TextView
         android:id="@+id/friends_friends_textView"
