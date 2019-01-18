@@ -1,6 +1,8 @@
 package com.sssvt_prg.tomas.kfm_messenger;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -26,24 +28,28 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-
+        SharedPreferences sp = getSharedPreferences("global", Context.MODE_PRIVATE);
 
         try {
-            String response = new SendGetColor().execute().get();
+            String response = new SendGetColor().execute(
+                    sp.getString("AppUrl","None"),
+                    sp.getString("Token","None"),
+                    sp.getString("UserId","None"))
+                    .get();
             response = response.substring(1,response.length()-2);
-            LoginActivity.newColor = Color.parseColor("#"+response);
+            sp.edit().putString("newColor", String.valueOf(Color.parseColor("#"+response))).commit();
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(LoginActivity.newColor));
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Integer.parseInt(this.getSharedPreferences("global",Context.MODE_PRIVATE).getString("newColor","None"))));
 
         Window window = this.getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(LoginActivity.newColor);
+        window.setStatusBarColor(Integer.parseInt(this.getSharedPreferences("global",Context.MODE_PRIVATE).getString("newColor","None")));
 
         EditText name_profile_editText = (EditText) findViewById(R.id.name_profile_editText);
         EditText surname_profile_editText = (EditText) findViewById(R.id.surname_profile_editText);
@@ -52,7 +58,9 @@ public class ProfileActivity extends AppCompatActivity {
         EditText phone_profile_editText = (EditText) findViewById(R.id.phone_profile_editText);
 
         try {
-            String response = new SendGetProfile().execute().get();
+            String response = new SendGetProfile().execute(sp.getString("AppUrl","None"),
+                    sp.getString("Token","None"),
+                    sp.getString("UserId","None")).get();
             response = response.substring(1,response.length()-1);
             response = response.replace("\\","");
             JSONObject jObject = null;
@@ -78,8 +86,8 @@ public class ProfileActivity extends AppCompatActivity {
 
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setItemIconTintList(ColorStateList.valueOf(LoginActivity.newColor));
-        navigation.setItemTextColor(ColorStateList.valueOf(LoginActivity.newColor));
+        navigation.setItemIconTintList(ColorStateList.valueOf(Integer.parseInt(this.getSharedPreferences("global",Context.MODE_PRIVATE).getString("newColor","None"))));
+        navigation.setItemTextColor(ColorStateList.valueOf(Integer.parseInt(this.getSharedPreferences("global",Context.MODE_PRIVATE).getString("newColor","None"))));
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {

@@ -1,6 +1,8 @@
 package com.sssvt_prg.tomas.kfm_messenger;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -21,16 +23,16 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(LoginActivity.newColor));
+        SharedPreferences sp = getSharedPreferences("global", Context.MODE_PRIVATE);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Integer.parseInt(this.getSharedPreferences("global",Context.MODE_PRIVATE).getString("newColor","None"))));
 
         Window window = this.getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(LoginActivity.newColor);
+        window.setStatusBarColor(Integer.parseInt(this.getSharedPreferences("global",Context.MODE_PRIVATE).getString("newColor","None")));
 
         Button changeColor_button = (Button) findViewById(R.id.changeColor_button);
-        changeColor_button.setBackgroundColor(LoginActivity.newColor);
+        changeColor_button.setBackgroundColor(Integer.parseInt(this.getSharedPreferences("global",Context.MODE_PRIVATE).getString("newColor","None")));
         changeColor_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,12 +42,12 @@ public class SettingsActivity extends AppCompatActivity {
         });
 
         Button logout_settings_button = (Button) findViewById(R.id.logout_settings_button);
-        logout_settings_button.setBackgroundColor(LoginActivity.newColor);
+        logout_settings_button.setBackgroundColor(Integer.parseInt(this.getSharedPreferences("global",Context.MODE_PRIVATE).getString("newColor","None")));
         logout_settings_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LoginActivity.Token = "";
-                LoginActivity.UserID = "";
+                sp.edit().putString("Token","").commit();
+                sp.edit().putString("UserId","").commit();
                 Intent startIntent = new Intent(getApplicationContext(), LoginActivity.class);
                 //pass informations to anther activity later
                 startActivity(startIntent);
@@ -54,8 +56,8 @@ public class SettingsActivity extends AppCompatActivity {
 
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setItemIconTintList(ColorStateList.valueOf(LoginActivity.newColor));
-        navigation.setItemTextColor(ColorStateList.valueOf(LoginActivity.newColor));
+        navigation.setItemIconTintList(ColorStateList.valueOf(Integer.parseInt(this.getSharedPreferences("global",Context.MODE_PRIVATE).getString("newColor","None"))));
+        navigation.setItemTextColor(ColorStateList.valueOf(Integer.parseInt(this.getSharedPreferences("global",Context.MODE_PRIVATE).getString("newColor","None"))));
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {

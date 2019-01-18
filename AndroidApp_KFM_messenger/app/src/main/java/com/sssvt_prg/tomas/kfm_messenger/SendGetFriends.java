@@ -16,7 +16,7 @@ public class SendGetFriends extends AsyncTask<String, String, String> {
 
     protected String doInBackground(String... params) {
 
-        String apiurl = LoginActivity.AppUrl+"/api/friends/"+LoginActivity.Token+"-"+LoginActivity.UserID;
+        String apiurl = params[0]+"/api/friends/"+params[1]+"-"+params[2];
 
         HttpURLConnection connection = null;
         BufferedReader reader = null;

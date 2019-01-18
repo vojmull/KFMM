@@ -1,6 +1,8 @@
 package com.sssvt_prg.tomas.kfm_messenger;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -40,22 +42,22 @@ public class FriendsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends);
-
+        SharedPreferences sp = getSharedPreferences("global", Context.MODE_PRIVATE);
         //names = new ArrayList<String>();
         //surnames = new ArrayList<String>();
 
 
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(LoginActivity.newColor));
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Integer.parseInt(this.getSharedPreferences("global",Context.MODE_PRIVATE).getString("newColor","None"))));
 
         Window window = this.getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(LoginActivity.newColor);
+        window.setStatusBarColor(Integer.parseInt(this.getSharedPreferences("global",Context.MODE_PRIVATE).getString("newColor","None")));
 
         Button add_friends_button = (Button) findViewById(R.id.add_friends_button);
-        add_friends_button.setBackgroundColor(LoginActivity.newColor);
+        add_friends_button.setBackgroundColor(Integer.parseInt(this.getSharedPreferences("global",Context.MODE_PRIVATE).getString("newColor","None")));
         Button requests_friends_button = (Button) findViewById(R.id.requests_friends_button);
-        requests_friends_button.setBackgroundColor(LoginActivity.newColor);
+        requests_friends_button.setBackgroundColor(Integer.parseInt(this.getSharedPreferences("global",Context.MODE_PRIVATE).getString("newColor","None")));
 
 
         add_friends_button.setOnClickListener(new View.OnClickListener() {
@@ -69,7 +71,9 @@ public class FriendsActivity extends AppCompatActivity {
 
 
         try {
-            String response = new SendGetFriends().execute().get();
+            String response = new SendGetFriends().execute(sp.getString("AppUrl","None"),
+                    sp.getString("Token","None"),
+                    sp.getString("UserId","None")).get();
             response = response.substring(1, response.length() - 1);
             response = response.replace("\\", "");
             JSONArray jArray = null;
@@ -104,8 +108,8 @@ public class FriendsActivity extends AppCompatActivity {
 
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setItemIconTintList(ColorStateList.valueOf(LoginActivity.newColor));
-        navigation.setItemTextColor(ColorStateList.valueOf(LoginActivity.newColor));
+        navigation.setItemIconTintList(ColorStateList.valueOf(Integer.parseInt(this.getSharedPreferences("global",Context.MODE_PRIVATE).getString("newColor","None"))));
+        navigation.setItemTextColor(ColorStateList.valueOf(Integer.parseInt(this.getSharedPreferences("global",Context.MODE_PRIVATE).getString("newColor","None"))));
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -145,7 +149,9 @@ public class FriendsActivity extends AppCompatActivity {
                         List<Integer> ids = new ArrayList<Integer>();
 
                         try {
-                            String response = new SendGetFriends().execute().get();
+                            String response = new SendGetFriends().execute(sp.getString("AppUrl","None"),
+                                    sp.getString("Token","None"),
+                                    sp.getString("UserId","None")).get();
                             response = response.substring(1, response.length() - 1);
                             response = response.replace("\\", "");
                             JSONArray jArray = null;

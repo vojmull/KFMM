@@ -16,7 +16,7 @@ public class SendGetConfirmConversationRead extends AsyncTask<String, String, St
 
     protected String doInBackground(String... params) {
 
-        String apiurl = LoginActivity.AppUrl+"/api/messages/messageread/"+LoginActivity.Token+"-"+ LoginActivity.UserID+"-"+params[0];
+        String apiurl = params[1]+"/api/messages/messageread/"+params[2]+"-"+ params[3]+"-"+params[0];
 
         HttpURLConnection connection = null;
         BufferedReader reader = null;

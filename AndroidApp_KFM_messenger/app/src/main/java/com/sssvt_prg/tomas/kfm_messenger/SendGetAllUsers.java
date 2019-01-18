@@ -16,7 +16,7 @@ public class SendGetAllUsers extends AsyncTask<String, String, String> {
 
     protected String doInBackground(String... params) {
 
-        String apiurl = LoginActivity.AppUrl+"/api/users/"+LoginActivity.Token;
+        String apiurl = params[0]+"/api/users/"+params[1];
 
         HttpURLConnection connection = null;
         BufferedReader reader = null;

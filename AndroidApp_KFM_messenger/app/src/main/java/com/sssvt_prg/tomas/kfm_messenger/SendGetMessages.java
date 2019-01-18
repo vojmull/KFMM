@@ -16,7 +16,7 @@ public class SendGetMessages extends AsyncTask<String, String, String> {
 
     protected String doInBackground(String... params) {
 
-        String apiurl = LoginActivity.AppUrl+"/api/messages/"+LoginActivity.Token+"-"+LoginActivity.UserID+"-0";
+        String apiurl = params[0]+"/api/messages/"+params[1]+"-"+params[2]+"-0";
 
         HttpURLConnection connection = null;
         BufferedReader reader = null;

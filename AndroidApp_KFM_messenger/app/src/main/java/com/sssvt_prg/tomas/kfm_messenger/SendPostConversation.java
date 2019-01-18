@@ -15,11 +15,14 @@ public class SendPostConversation extends AsyncTask<String, Integer, String> {
 
     public String sendPost(String args) {
 
-        String segments[] = args.split("/");
+        String segments[] = args.split("-");
         String content = segments[0];
         String messageID = segments[1];
+        String newurl = segments[2];
+        String token = segments[3];
+        String userId = segments[4];
 
-        String apiurl = LoginActivity.AppUrl + "/api/messages/postmessage/"+ LoginActivity.Token+"-"+LoginActivity.UserID+"-"+messageID;
+        String apiurl = newurl + "/api/messages/postmessage/"+ token+"-"+userId+"-"+messageID;
         String response = "";
         try {
             URL url = new URL(apiurl);

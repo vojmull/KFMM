@@ -1,6 +1,8 @@
 package com.sssvt_prg.tomas.kfm_messenger;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,15 +20,15 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
+        SharedPreferences sp = getSharedPreferences("global", Context.MODE_PRIVATE);
 
         Button register_register_button=(Button)findViewById(R.id.register_register_button);
-        register_register_button.setBackgroundColor(LoginActivity.newColor);
+        register_register_button.setBackgroundColor(Integer.parseInt(this.getSharedPreferences("global",Context.MODE_PRIVATE).getString("newColor","None")));
         register_register_button.setTextColor(Color.WHITE);
         TextView register_register_textView=(TextView)findViewById(R.id.register_register_textView);
-        register_register_textView.setTextColor(LoginActivity.newColor);
+        register_register_textView.setTextColor(Integer.parseInt(this.getSharedPreferences("global",Context.MODE_PRIVATE).getString("newColor","None")));
         Button login_register_button=(Button)findViewById(R.id.login_register_button);
-        login_register_button.setTextColor(LoginActivity.newColor);
+        login_register_button.setTextColor(Integer.parseInt(this.getSharedPreferences("global",Context.MODE_PRIVATE).getString("newColor","None")));
 
         final EditText email_register_edittext = (EditText) findViewById(R.id.email_register_editText);
         final EditText password_register_edittext = (EditText) findViewById(R.id.password_register_editText);
@@ -73,7 +75,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                 SendPostRegister spr = new SendPostRegister();
                 try {
-                    String response = spr.execute("Email="+email+"&Password="+password+"&Name="+name+"&Surname="+surname).get();
+                    String response = spr.execute("Email="+email+"&Password="+password+"&Name="+name+"&Surname="+surname+"-"+sp.getString("AppUrl","None")).get();
                     response = response.substring(1,response.length()-1);
 
                     if(response.equals("ConnectionWithDatabaseProblem")){

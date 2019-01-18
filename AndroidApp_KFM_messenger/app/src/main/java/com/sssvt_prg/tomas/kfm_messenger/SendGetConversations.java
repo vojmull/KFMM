@@ -16,7 +16,7 @@ public class SendGetConversations extends AsyncTask<String, String, String> {
 
     protected String doInBackground(String... params) {
 
-        String apiurl = LoginActivity.AppUrl+"//api/messages/getconversation/"+LoginActivity.Token+"-0-"+params[0];
+        String apiurl = params[1]+"/api/messages/getconversation/"+params[2]+"-0-"+params[0];
 
         HttpURLConnection connection = null;
         BufferedReader reader = null;

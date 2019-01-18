@@ -5,17 +5,45 @@
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/message_detail_textView"
-        android:layout_width="290dp"
+        android:id="@+id/time_detail_textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/message_detail_textView2"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="136dp"
+        android:layout_marginRight="136dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/message_detail_textView2"
+        android:layout_width="211dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="15dp"
-        android:layout_marginLeft="15dp"
+        android:layout_marginStart="99dp"
+        android:layout_marginLeft="99dp"
         android:layout_marginTop="17dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginEnd="9dp"
+        android:background="@drawable/rounded_corner"
+        android:text="Message"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/message_detail_textView"
+        android:layout_width="227dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="9dp"
+        android:layout_marginLeft="9dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="84dp"
         android:background="@drawable/rounded_corner"
         android:text="Message"
         android:textSize="18sp" />
@@ -28,9 +56,9 @@
         android:layout_below="@+id/message_detail_textView"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="3dp"
-        android:layout_marginEnd="160dp"
-        android:layout_marginRight="160dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="137dp"
+        android:layout_marginRight="137dp"
         android:text="TextView" />
 
 
@@ -42,6 +70,16 @@
         android:layout_marginStart="-75dp"
         android:layout_marginTop="0dp"
         android:layout_toEndOf="@+id/time_detail_textView"
+        app:srcCompat="@drawable/ic_home_black_24dp" />
+
+    <ImageView
+        android:id="@+id/seen_detail_imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/time_detail_textView2"
+        android:layout_marginStart="-75dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/time_detail_textView2"
         app:srcCompat="@drawable/ic_home_black_24dp" />51dp"
         android:layout_marginTop="103dp"
         android:layout_toEndOf="@+id/time_detail_textView"

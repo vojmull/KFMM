@@ -2,6 +2,7 @@ package com.sssvt_prg.tomas.kfm_messenger;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -27,6 +28,7 @@ public class CustomListView_friends extends ArrayAdapter<String> {
     private ListView friends_listview;
     //private String [] names;
     //private String []surnames;
+
     private Activity context;
     public CustomListView_friends(@NonNull Context context, List<String> surnames,List<String> names,List<Integer> imagesId,List<Integer> ids){
         super(context,R.layout.friends_litview_detail,names);
@@ -36,6 +38,8 @@ public class CustomListView_friends extends ArrayAdapter<String> {
         this.surnames=surnames;
         this.imagesId=imagesId;
         this.ids=ids;
+
+
 
     }
 
@@ -60,15 +64,17 @@ public class CustomListView_friends extends ArrayAdapter<String> {
         viewHolder.tvw2.setText(surnames.get(position));
         //viewHolder.tvw1.setText(names[position]);
         //viewHolder.tvw2.setText(surnames[position]);
-        viewHolder.bchat.setBackgroundColor(LoginActivity.newColor);
+        viewHolder.bchat.setBackgroundColor(Integer.parseInt(context.getSharedPreferences("global",Context.MODE_PRIVATE).getString("newColor","None")));
         // tady dat onClickListener na otevreni zpravy
-        viewHolder.bdel.setBackgroundColor(LoginActivity.newColor);
+        viewHolder.bdel.setBackgroundColor(Integer.parseInt(context.getSharedPreferences("global",Context.MODE_PRIVATE).getString("newColor","None")));
         viewHolder.bdel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                SharedPreferences sp = context.getSharedPreferences("global", Context.MODE_PRIVATE);
                 try {
-                    String response = new SendGetRemoveFriend().execute(String.valueOf(ids.get(position))).get();
+                    String response = new SendGetRemoveFriend().execute(String.valueOf(ids.get(position)),sp.getString("AppUrl","None"),
+                            sp.getString("Token","None"),
+                            sp.getString("UserId","None")).get();
                     response = response.substring(1,response.length()-2);
                     if(response.equals("OK")){
                         Toast.makeText(context, "a friend was succesfully removed", Toast.LENGTH_LONG).show();

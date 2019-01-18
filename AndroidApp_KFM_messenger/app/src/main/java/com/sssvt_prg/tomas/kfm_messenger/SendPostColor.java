@@ -16,7 +16,11 @@ public class SendPostColor extends AsyncTask<String, Integer, String> {
     public String sendPost(String args)
     {
 
-        String apiurl = LoginActivity.AppUrl+"/api/color/"+LoginActivity.Token;
+        String segments[] = args.split("-");
+        String newdata = segments[0];
+        String newurl = segments[1];
+        String token = segments[2];
+        String apiurl = newurl+"/api/color/"+token;
         String response = "";
         try {
             URL url= new URL(apiurl);;
@@ -30,7 +34,7 @@ public class SendPostColor extends AsyncTask<String, Integer, String> {
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             conn.connect();
             printout = new DataOutputStream(conn.getOutputStream());
-            byte[] data=args.getBytes("UTF-8");
+            byte[] data=newdata.getBytes("UTF-8");
             printout.write(data);
             printout.flush();
             printout.close();

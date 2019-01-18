@@ -1,6 +1,8 @@
 package com.sssvt_prg.tomas.kfm_messenger;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -26,25 +28,26 @@ public class MessagesActivity extends AppCompatActivity {
 
     ListView messages_listview;
 
-    public static List <String> names = new ArrayList<String>();
-    public static List <String> surnames = new ArrayList<String>();
+    List <String> names = new ArrayList<String>();
+    List <String> surnames = new ArrayList<String>();
     public static List <String> chatnames = new ArrayList<String>();
     List <String> messages= new ArrayList<String>();
     List <String> times = new ArrayList<String>();
     List <Integer> imagesId = new ArrayList<Integer>();
     public static List <String> conversationsId = new ArrayList<String>();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messages);
-
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(LoginActivity.newColor));
+        SharedPreferences sp = getSharedPreferences("global", Context.MODE_PRIVATE);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Integer.parseInt(this.getSharedPreferences("global",Context.MODE_PRIVATE).getString("newColor","None"))));
 
         Window window = this.getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(LoginActivity.newColor);
+        window.setStatusBarColor(Integer.parseInt(this.getSharedPreferences("global",Context.MODE_PRIVATE).getString("newColor","None")));
 
         names = new ArrayList<>();
         surnames= new ArrayList<>();
@@ -55,7 +58,9 @@ public class MessagesActivity extends AppCompatActivity {
         conversationsId= new ArrayList<>();
 
         try {
-            String response = new SendGetMessages().execute().get();
+            String response = new SendGetMessages().execute(sp.getString("AppUrl","None"),
+                    sp.getString("Token","None"),
+                    sp.getString("UserId","None")).get();
             response = response.substring(1,response.length()-1);
             response = response.replace("\\","");
             JSONArray jArray = null;
@@ -110,8 +115,8 @@ public class MessagesActivity extends AppCompatActivity {
         });
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setItemIconTintList(ColorStateList.valueOf(LoginActivity.newColor));
-        navigation.setItemTextColor(ColorStateList.valueOf(LoginActivity.newColor));
+        navigation.setItemIconTintList(ColorStateList.valueOf(Integer.parseInt(this.getSharedPreferences("global",Context.MODE_PRIVATE).getString("newColor","None"))));
+        navigation.setItemTextColor(ColorStateList.valueOf(Integer.parseInt(this.getSharedPreferences("global",Context.MODE_PRIVATE).getString("newColor","None"))));
             navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {

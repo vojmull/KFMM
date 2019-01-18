@@ -16,7 +16,7 @@ public class SendGetRemoveFriend extends AsyncTask<String, String, String> {
 
     protected String doInBackground(String... params) {
 
-        String apiurl = LoginActivity.AppUrl+"/api/friends/remove/"+LoginActivity.Token+"-"+LoginActivity.UserID+"-"+params[0];
+        String apiurl = params[1]+"/api/friends/remove/"+params[2]+"-"+params[3]+"-"+params[0];
 
         HttpURLConnection connection = null;
         BufferedReader reader = null;

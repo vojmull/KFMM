@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,21 +64,26 @@ public class CustomListView_conversations extends BaseAdapter {
 
         }*/
 
-        TextView conversationTV = (TextView) v.findViewById(R.id.message_detail_textView);
-        TextView timeTV = (TextView) v.findViewById(R.id.time_detail_textView);
-        ImageView imageIV = (ImageView) v.findViewById(R.id.seen_detail_imageView);
+        TextView conversationTV1 = (TextView) v.findViewById(R.id.message_detail_textView);
+        TextView conversationTV2 = (TextView) v.findViewById(R.id.message_detail_textView2);
+        TextView timeTV1 = (TextView) v.findViewById(R.id.time_detail_textView);
+        TextView timeTV2 = (TextView) v.findViewById(R.id.time_detail_textView2);
+        ImageView imageIV1 = (ImageView) v.findViewById(R.id.seen_detail_imageView);
+        ImageView imageIV2 = (ImageView) v.findViewById(R.id.seen_detail_imageView2);
 
         /*if(authors.get(position).equals(LoginActivity.UserID)) {
             v.setBackgroundColor(LoginActivity.newColor);
 
         }*/
-        if(authors.get(position).equals(LoginActivity.UserID)) {
+        if(authors.get(position).equals(context.getSharedPreferences("global",Context.MODE_PRIVATE).getString("UserId","None"))) {
             //conversationTV.setBackgroundColor(LoginActivity.newColor);
 
-            conversationTV.setBackground(ContextCompat.getDrawable(context, R.drawable.rounded_corner_darker));
-
+            conversationTV2.setBackground(ContextCompat.getDrawable(context, R.drawable.rounded_corner_darker));
+            timeTV1.setVisibility(View.INVISIBLE);
+            conversationTV1.setVisibility(View.INVISIBLE);
+            imageIV1.setVisibility(View.INVISIBLE);
             //conversationTV.setGravity(Gravity.END);
-            conversationTV.setGravity(Gravity.END);
+            //conversationTV.setGravity(Gravity.END);
         }
         else{
 
@@ -88,41 +92,75 @@ public class CustomListView_conversations extends BaseAdapter {
         String conv = conversations.get(position);
         String tim = times.get(position);
 
-
-        conversationTV.setText(conv);
-        timeTV.setText(tim);
-
-
-        if(seen.get(position)==true)
-        {
-            try{
-                if(seen.get(position+1).equals(false)){
-                    imageIV.setImageResource(R.drawable.seen);
+        if(authors.get(position).equals(context.getSharedPreferences("global",Context.MODE_PRIVATE).getString("UserId","None"))){
+            conversationTV2.setText(conv);
+            timeTV2.setText(tim);
+            if(seen.get(position)==true)
+            {
+                try{
+                    if(seen.get(position+1).equals(false)){
+                        imageIV2.setImageResource(R.drawable.seen);
+                    }
+                    else{
+                        imageIV2.setVisibility(View.INVISIBLE);
+                    }
                 }
-                else{
-                    imageIV.setVisibility(View.INVISIBLE);
+                catch(Exception ex){
+                    imageIV2.setImageResource(R.drawable.seen);
                 }
-            }
-            catch(Exception ex){
-                imageIV.setImageResource(R.drawable.seen);
-            }
 
+            }
+            else if(delievered.get(position)==true ||delievered.get(position)==false){
+                try{
+                    if(delievered.get(position+1).equals(false)){
+                        imageIV2.setImageResource(R.drawable.delievered);
+                    }
+                    else{
+                        imageIV2.setVisibility(View.INVISIBLE);
+                    }
+                }
+                catch(Exception ex){
+                    imageIV2.setImageResource(R.drawable.delievered);
+                }
+
+            }
         }
-        else if(delievered.get(position)==true ||delievered.get(position)==false){
-            try{
-                if(delievered.get(position+1).equals(false)){
-                    imageIV.setImageResource(R.drawable.delievered);
+        else{
+            conversationTV2.setVisibility(View.INVISIBLE);
+            timeTV2.setVisibility(View.INVISIBLE);
+            imageIV2.setVisibility(View.INVISIBLE);
+            conversationTV1.setText(conv);
+            timeTV1.setText(tim);
+            if(seen.get(position)==true)
+            {
+                try{
+                    if(seen.get(position+1).equals(false)){
+                        imageIV1.setImageResource(R.drawable.seen);
+                    }
+                    else{
+                        imageIV1.setVisibility(View.INVISIBLE);
+                    }
                 }
-                else{
-                    imageIV.setVisibility(View.INVISIBLE);
+                catch(Exception ex){
+                    imageIV1.setImageResource(R.drawable.seen);
                 }
-            }
-            catch(Exception ex){
-                imageIV.setImageResource(R.drawable.delievered);
-            }
 
+            }
+            else if(delievered.get(position)==true ||delievered.get(position)==false){
+                try{
+                    if(delievered.get(position+1).equals(false)){
+                        imageIV1.setImageResource(R.drawable.delievered);
+                    }
+                    else{
+                        imageIV1.setVisibility(View.INVISIBLE);
+                    }
+                }
+                catch(Exception ex){
+                    imageIV1.setImageResource(R.drawable.delievered);
+                }
+
+            }
         }
-
 
         return v;
     }

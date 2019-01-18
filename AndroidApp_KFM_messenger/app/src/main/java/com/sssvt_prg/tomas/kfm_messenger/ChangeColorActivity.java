@@ -1,6 +1,8 @@
 package com.sssvt_prg.tomas.kfm_messenger;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -16,16 +18,17 @@ import java.util.concurrent.ExecutionException;
 
 public class ChangeColorActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_color);
-
+        SharedPreferences sp = getSharedPreferences("global", Context.MODE_PRIVATE);
 
         Window window = this.getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(LoginActivity.newColor);
+        window.setStatusBarColor(Integer.parseInt(this.getSharedPreferences("global",Context.MODE_PRIVATE).getString("newColor","None")));
 
         Button backToSettings_button = (Button) findViewById(R.id.backToSettings_button);
         backToSettings_button.setOnClickListener(new View.OnClickListener() {
@@ -42,11 +45,11 @@ public class ChangeColorActivity extends AppCompatActivity {
             @Override
             public void onColorSelected(ColorEnvelope colorEnvelope) {
 
-                LoginActivity.newColor = colorEnvelope.getColor();
+                sp.edit().putString("newColor", String.valueOf(colorEnvelope.getColor())).commit();
 
                 SendPostColor spc = new SendPostColor();
                 try {
-                    String response = spc.execute("IdUser="+LoginActivity.UserID+"&Color="+colorEnvelope.getColorHtml()).get();
+                    String response = spc.execute("IdUser="+sp.getString("UserId","None")+"&Color="+colorEnvelope.getColorHtml()+"-"+sp.getString("AppUrl","None")+"-"+sp.getString("Token","None")).get();
                 } catch (ExecutionException e) {
                     e.printStackTrace();
                 } catch (InterruptedException e) {

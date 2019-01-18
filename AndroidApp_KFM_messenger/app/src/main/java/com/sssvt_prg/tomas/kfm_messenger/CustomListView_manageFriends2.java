@@ -72,13 +72,17 @@ public class CustomListView_manageFriends2 extends BaseAdapter {
         ivw.setImageResource(R.drawable.icons8_person_48);
         tvw1.setText(names.get(position));
         tvw2.setText(surnames.get(position));
-        badd.setBackgroundColor(LoginActivity.newColor);
+        badd.setBackgroundColor(Integer.parseInt(context.getSharedPreferences("global",Context.MODE_PRIVATE).getString("newColor","None")));
         badd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SendGetAddFriend spaf = new SendGetAddFriend();
                 try {
-                    String response = spaf.execute(String.valueOf(ids.get(position))).get();
+                    String response = spaf.execute(String.valueOf(ids.get(position)),
+                            context.getSharedPreferences("global",Context.MODE_PRIVATE).getString("AppUrl","None")
+                            ,context.getSharedPreferences("global",Context.MODE_PRIVATE).getString("Token","None")
+                            ,context.getSharedPreferences("global",Context.MODE_PRIVATE).getString("UserId","None"))
+                            .get();
                     response = response.substring(1,response.length()-2);
                     if(response.equals("OK")){
                         Toast.makeText(context, "a friend request has been sent", Toast.LENGTH_LONG).show();

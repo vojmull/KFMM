@@ -14,7 +14,11 @@ import javax.net.ssl.HttpsURLConnection;
 public class SendPostRegister extends AsyncTask<String, Integer, String> {
     public String sendPost(String args)
     {
-        String apiurl = LoginActivity.AppUrl+"/api/newuser";
+        String segments[] = args.split("-");
+        String newdata = segments[0];
+        String newurl = segments[1];
+
+        String apiurl = newurl+"/api/newuser";
         String response = "";
         try {
             URL url= new URL(apiurl);;
@@ -28,7 +32,7 @@ public class SendPostRegister extends AsyncTask<String, Integer, String> {
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             conn.connect();
             printout = new DataOutputStream(conn.getOutputStream());
-            byte[] data=args.getBytes("UTF-8");
+            byte[] data=newdata.getBytes("UTF-8");
             printout.write(data);
             printout.flush();
             printout.close();

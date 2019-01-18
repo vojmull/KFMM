@@ -1,5 +1,7 @@
 package com.sssvt_prg.tomas.kfm_messenger;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -30,11 +32,11 @@ public class ManageFriendsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_friends);
-
+        SharedPreferences sp = getSharedPreferences("global", Context.MODE_PRIVATE);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         Button search_manageFriends_button =(Button)findViewById(R.id.search_manageFriends_button);
-        search_manageFriends_button.setBackgroundColor(LoginActivity.newColor);
+        search_manageFriends_button.setBackgroundColor(Integer.parseInt(this.getSharedPreferences("global",Context.MODE_PRIVATE).getString("newColor","None")));
         EditText name_manageFriends_editText = (EditText) findViewById(R.id.name_manageFriends_editText);
 
 
@@ -48,7 +50,10 @@ public class ManageFriendsActivity extends AppCompatActivity {
                 ids = new ArrayList<Integer>();
 
                 try {
-                    String response = new SendGetAllUsers().execute().get();
+                    String response = new SendGetAllUsers().execute(
+                            sp.getString("AppUrl","None"),
+                            sp.getString("Token","None"))
+                            .get();
                     response = response.substring(1, response.length() - 1);
                     response = response.replace("\\", "");
                     JSONArray jArray = null;
@@ -90,7 +95,10 @@ public class ManageFriendsActivity extends AppCompatActivity {
         ids = new ArrayList<Integer>();
 
         try {
-            String response = new SendGetAllUsers().execute().get();
+            String response = new SendGetAllUsers().execute(
+                    sp.getString("AppUrl","None"),
+                    sp.getString("Token","None"))
+                    .get();
             response = response.substring(1,response.length()-1);
             response = response.replace("\\","");
             JSONArray jArray = null;
