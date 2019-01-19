@@ -13,9 +13,9 @@ namespace MessengerApi.Controllers
         private dbContext _database = new dbContext();
 
         // Poslani zadosti o pridani noveho pritele
-        [System.Web.Http.Route("api/friends/adduser/{token}-{userId}-{requestedUserId}")]
+        [System.Web.Http.Route("api/friends/adduser/{token}-{userId}-{requestedUserEmail}")]
         [System.Web.Http.HttpGet]
-        public string AddFriend(string token, int userId, int requestedUserId)
+        public string AddFriend(string token, int userId, string requestedUserEmail)
         {
             string toRet = "OK";
 
@@ -31,7 +31,7 @@ namespace MessengerApi.Controllers
                 {
                     Accepted = false,
                     IdUserRequestor = userId,
-                    IdUser2 = requestedUserId,
+                    IdUser2 = this._database.Users.Where(u => u.Email == requestedUserEmail).Select(u => u.Id).FirstOrDefault(),
                     TimeSent = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
                     RequestExpiration = DateTime.Now.AddDays(7).ToString("yyyy-MM-dd HH:mm:ss")
                 };
