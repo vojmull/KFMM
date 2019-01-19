@@ -2,6 +2,7 @@ package com.sssvt_prg.tomas.kfm_messenger;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -65,7 +66,34 @@ public class CustomListView_friends extends ArrayAdapter<String> {
         //viewHolder.tvw1.setText(names[position]);
         //viewHolder.tvw2.setText(surnames[position]);
         viewHolder.bchat.setBackgroundColor(Integer.parseInt(context.getSharedPreferences("global",Context.MODE_PRIVATE).getString("newColor","None")));
-        // tady dat onClickListener na otevreni zpravy
+        viewHolder.bchat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences sp = context.getSharedPreferences("global", Context.MODE_PRIVATE);
+                try {
+                    SendPostStartNewConversation spsnc = new SendPostStartNewConversation();
+                    String response = spsnc.execute("=Ahoj, chceš si se mnou povídat?-"
+                            +sp.getString("AppUrl","None")
+                            +"-"+sp.getString("Token","None")
+                            +"-"+sp.getString("UserId","None")
+                            +"-"+ids.get(position)
+                    ).get();
+
+                    response = response.substring(1,response.length()-2);
+                    if(response.equals("OK")){
+                        Toast.makeText(context, "a friend was succesfully removed", Toast.LENGTH_LONG).show();
+
+                    }
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                Intent startIntent = new Intent(context, MessagesActivity.class);
+                //pass informations to anther activity later
+                context.startActivity(startIntent);
+            }
+        });
         viewHolder.bdel.setBackgroundColor(Integer.parseInt(context.getSharedPreferences("global",Context.MODE_PRIVATE).getString("newColor","None")));
         viewHolder.bdel.setOnClickListener(new View.OnClickListener() {
             @Override

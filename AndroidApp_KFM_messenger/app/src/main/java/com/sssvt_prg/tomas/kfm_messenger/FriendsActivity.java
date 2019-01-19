@@ -68,6 +68,14 @@ public class FriendsActivity extends AppCompatActivity {
                 startActivity(manageFriends);
             }
         });
+        requests_friends_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent requestFriends = new Intent(FriendsActivity.this, friendRequestsActivity.class);
+                startActivity(requestFriends);
+            }
+        });
 
 
         try {

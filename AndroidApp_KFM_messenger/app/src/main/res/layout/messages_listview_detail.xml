@@ -19,7 +19,7 @@
     <TextView
         android:id="@+id/name_messages_textView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="25dp"
         android:layout_alignParentTop="true"
         android:layout_marginStart="6dp"
         android:layout_marginLeft="6dp"
@@ -32,16 +32,16 @@
     <TextView
         android:id="@+id/surname_messages_textView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="25dp"
         android:layout_alignBottom="@+id/name_friends_textView"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_marginStart="3dp"
         android:layout_marginLeft="3dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginEnd="116dp"
-        android:layout_marginRight="116dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginRight="11dp"
         android:layout_marginBottom="0dp"
         android:layout_toEndOf="@+id/name_messages_textView"
         android:layout_toRightOf="@+id/name_messages_textView"
@@ -50,7 +50,7 @@
 
     <TextView
         android:id="@+id/message_messages_textView"
-        android:layout_width="wrap_content"
+        android:layout_width="228dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginStart="6dp"
