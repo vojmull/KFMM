@@ -41,5 +41,50 @@ namespace MessengerApi.Controllers
 
             return JsonConvert.SerializeObject(toRet);
         }
+
+        //vraci ID usera, popripade ID konverzace, kdyz existuje => kdyz ne, tak je tam 0
+        //napr 1-15 (iduser 1, idconversation 15)
+        //napr 0-0 (user ani conversation neexistuje)
+        [System.Web.Http.Route("api/users/checkuser/{token}-{typedName}-{userId}")]
+        [System.Web.Http.HttpGet]
+        public string CheckUserExists(string token, string typedName, int userId)
+        {
+            //TODO nevratit, pokud se s nim nekamosi
+            string toRet = "0";
+
+            Token t = Token.Exists(token);
+            if (t == null || !t.IsUser)
+            {
+                return "TokenERROR";
+            }
+
+            List<string> nameContent = typedName.Split(' ').ToList();
+
+            foreach (Users item in this._database.Users.ToList())
+            {
+
+                if (item.Name + " " + item.Surname == typedName)
+                {
+                    toRet = item.Id.ToString();
+                    break;
+                }
+            }
+
+            if (toRet == "0")
+                return "0-0";
+
+            //int pId = Convert.ToInt32(toRet);
+            ////check konverzace
+            //List<Participants> p = this._database.Participants.OrderBy(p => p.IdConversation).ToList();
+
+            //p.Where(x => x.)
+
+            //foreach (Participants item in p)
+            //{
+            //    if (item.IdConversation == )
+            //}
+
+            return toRet.ToString();
+        }
     }
 }

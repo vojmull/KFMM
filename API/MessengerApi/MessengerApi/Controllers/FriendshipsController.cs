@@ -164,5 +164,21 @@ namespace MessengerApi.Controllers
                 return "OK";
             }
         }
+
+        //Vraceni vsech zadosti o pratelstvi
+        [System.Web.Http.Route("api/friends/requests/{token}-{userId}")]
+        [System.Web.Http.HttpGet]
+        public string GetRequests(string token, int userId)
+        {
+            Token t = Token.Exists(token);
+            if (t == null || !t.IsUser)
+            {
+                return "TokenERROR";
+            }
+
+            return JsonConvert.SerializeObject(this._database.FriendshipRequests.Where(f => f.IdUser2 == userId && !f.Accepted).ToList());
+        }
+
+
     }
 }
