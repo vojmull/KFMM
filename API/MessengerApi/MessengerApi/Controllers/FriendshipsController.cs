@@ -176,7 +176,11 @@ namespace MessengerApi.Controllers
                 return "TokenERROR";
             }
 
-            return JsonConvert.SerializeObject(this._database.FriendshipRequests.Where(f => f.IdUser2 == userId && !f.Accepted).ToList());
+            List<FriendshipRequests> toRet = this._database.FriendshipRequests.Where(f => f.IdUser2 == userId && !f.Accepted).ToList();
+            toRet.ForEach(r => r.RequestorName = this._database.Users.Where(u => u.Id == r.IdUserRequestor)
+                .Select(u => u.Name + " " + u.Surname).FirstOrDefault());
+
+            return JsonConvert.SerializeObject(toRet);
         }
 
 
