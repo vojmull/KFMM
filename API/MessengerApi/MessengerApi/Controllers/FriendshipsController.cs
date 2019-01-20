@@ -100,7 +100,7 @@ namespace MessengerApi.Controllers
 
             try
             {
-                FriendshipRequests fr = this._database.FriendshipRequests.Where(f => f.IdUserRequestor == requestorUserId && userId == f.IdUser2).FirstOrDefault();
+                FriendshipRequests fr = this._database.FriendshipRequests.Where(f => f.IdUserRequestor == requestorUserId && userId == f.IdUser2 && f.Accepted == false).FirstOrDefault();
                 fr.Accepted = bAccepted;
                 this._database.SaveChanges();
 
