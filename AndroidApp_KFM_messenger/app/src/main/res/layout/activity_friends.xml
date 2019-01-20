@@ -70,7 +70,7 @@
     <ListView
         android:id="@+id/friends_listview"
         android:layout_width="0dp"
-        android:layout_height="285dp"
+        android:layout_height="331dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="8dp"

@@ -48,6 +48,12 @@ public class SettingsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 sp.edit().putString("Token","").commit();
                 sp.edit().putString("UserId","").commit();
+
+                //System.exit(0);
+
+                /*Intent intent = new Intent(SettingsActivity.this, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);*/
                 Intent startIntent = new Intent(getApplicationContext(), LoginActivity.class);
                 //pass informations to anther activity later
                 startActivity(startIntent);

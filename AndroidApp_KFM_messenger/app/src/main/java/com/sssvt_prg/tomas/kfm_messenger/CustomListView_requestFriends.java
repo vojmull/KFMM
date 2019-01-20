@@ -110,7 +110,7 @@ public class CustomListView_requestFriends extends BaseAdapter {
                             .get();
                     response = response.substring(1,response.length()-2);
                     if(response.equals("OK")){
-                        Toast.makeText(context, "a request was not confirmed", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "a request was declined", Toast.LENGTH_LONG).show();
                     }
                 } catch (ExecutionException e) {
                     e.printStackTrace();

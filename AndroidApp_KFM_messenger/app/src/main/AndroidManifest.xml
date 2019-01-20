@@ -37,13 +37,15 @@
             android:label="Profile" />
         <activity
             android:name=".FriendsActivity"
-            android:label="Friends" />
+            android:label="Friends"
+            />
         <activity
             android:name=".SettingsActivity"
             android:label="Settings" />
         <activity
             android:name=".ConversationActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            />
         <activity
             android:name=".ChangeColorActivity"
             android:theme="@style/AppTheme.NoActionBar" />

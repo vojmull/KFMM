@@ -23,7 +23,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.ExecutionException;
 
 public class FriendsActivity extends AppCompatActivity {
@@ -35,6 +34,7 @@ public class FriendsActivity extends AppCompatActivity {
     List<String> names = new ArrayList<String>();//={"Pepa","Tomáš","Tomáš","Tomáš","Tomáš","Tomáš","Tomáš"};
     List<String> surnames = new ArrayList<String>();//={"Novak","Okurka","Okurka","Okurka","Okurka","Okurka","Okurka"};
     List<Integer> ids = new ArrayList<Integer>();
+    List<Boolean> online = new ArrayList<Boolean>();
 
     //String[] names ={"Pepa","Tomáš","Tomáš","Tomáš","Tomáš","Tomáš","Tomáš"};
     //String[] surnames ={"Novak","Okurka","Okurka","Okurka","Okurka","Okurka","Okurka"};
@@ -98,6 +98,7 @@ public class FriendsActivity extends AppCompatActivity {
                     names.add(jsonObject.optString("Name"));
                     surnames.add(jsonObject.optString("Surname"));
                     ids.add((jsonObject.optInt("Id")));
+                    online.add((jsonObject.optBoolean("IsOnline")));
 
                 }
             } catch (JSONException e) {
@@ -111,7 +112,7 @@ public class FriendsActivity extends AppCompatActivity {
 
 
         friends_listview = (ListView) findViewById(R.id.friends_listview);
-        CustomListView_friends customListView_friends = new CustomListView_friends(this, surnames, names, imagesId, ids);
+        CustomListView_friends customListView_friends = new CustomListView_friends(this, surnames, names, imagesId, ids,online);
         friends_listview.setAdapter(customListView_friends);
 
 
@@ -140,7 +141,7 @@ public class FriendsActivity extends AppCompatActivity {
                 return false;
             }
         });
-
+/*
 //timer reload
         _timer.schedule(new TimerTask() {
             @Override
@@ -189,11 +190,11 @@ public class FriendsActivity extends AppCompatActivity {
 
 
                         friends_listview = (ListView) findViewById(R.id.friends_listview);
-                        CustomListView_friends customListView_friends = new CustomListView_friends(FriendsActivity.this, surnames, names, imagesId, ids);
+                        CustomListView_friends customListView_friends = new CustomListView_friends(FriendsActivity.this, surnames, names, imagesId, ids,online);
                         friends_listview.setAdapter(customListView_friends);
                     }
                 });
             }
-        }, 10000,10000);
+        }, 10000,10000);*/
     }
 }

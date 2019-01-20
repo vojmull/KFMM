@@ -17,7 +17,7 @@ public class SendGetAddFriend extends AsyncTask<String, String, String> {
 
     protected String doInBackground(String... params) {
 
-        String apiurl = params[1]+"/api/friends/adduser/"+params[2]+"-"+params[3]+"-"+params[0];
+        String apiurl = params[1]+"/api/friends/adduserkoren/"+params[2]+"-"+params[3]+"-"+params[0];
 
         HttpURLConnection connection = null;
         BufferedReader reader = null;

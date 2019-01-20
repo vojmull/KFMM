@@ -6,14 +6,14 @@
 
     <Button
         android:id="@+id/delete_friends_listview_button2"
-        android:layout_width="wrap_content"
-        android:layout_height="38dp"
+        android:layout_width="86dp"
+        android:layout_height="25dp"
         android:layout_below="@+id/name_friends_textView"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="113dp"
         android:layout_marginLeft="113dp"
         android:layout_marginTop="3dp"
-        android:layout_marginEnd="27dp"
+        android:layout_marginEnd="29dp"
         android:layout_marginRight="11dp"
         android:layout_toLeftOf="@+id/block_friends_button"
         android:layout_toEndOf="@+id/img_friends_imageView"
@@ -28,7 +28,7 @@
     <Button
         android:id="@+id/chat_friends_listview_button"
         android:layout_width="wrap_content"
-        android:layout_height="38dp"
+        android:layout_height="25dp"
         android:layout_below="@+id/name_friends_textView"
         android:layout_marginStart="18dp"
         android:layout_marginLeft="18dp"
@@ -89,5 +89,13 @@
         android:layout_toRightOf="@+id/name_friends_textView"
         android:text="Surname"
         android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/online_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_below="@+id/delete_friends_listview_button2"
+        android:layout_alignStart="@+id/chat_friends_listview_button"
+        android:text="TextView" />
 
 </RelativeLayout>
