@@ -46,6 +46,43 @@ namespace MessengerApi.Controllers
 
             return toRet;
         }
+        
+        
+        // Poslani zadosti o pridani noveho pritele koren
+        [System.Web.Http.Route("api/friends/adduserkoren/{token}-{userId}-{requestedUserId}")]
+        [System.Web.Http.HttpGet]
+        public string AddFriendKoren(string token, int userId, int requestedUserId)
+        {
+            string toRet = "OK";
+
+            Token t = Token.Exists(token);
+            if (t == null || !t.IsUser)
+            {
+                return "TokenERROR";
+            }
+
+            try
+            {
+                FriendshipRequests f = new FriendshipRequests()
+                {
+                    Accepted = false,
+                    IdUserRequestor = userId,
+                    IdUser2 = requestedUserId,
+                    TimeSent = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                    RequestExpiration = DateTime.Now.AddDays(7).ToString("yyyy-MM-dd HH:mm:ss")
+                };
+
+                this._database.FriendshipRequests.Add(f);
+                this._database.SaveChanges();
+            }
+            catch
+            {
+                toRet = "ProblemWithDatabase";
+            }
+
+            return toRet;
+        }
+
 
         //Potvrzeni zadosti o pridani do pratel
         [System.Web.Http.Route("api/friends/adduser/{token}-{userId}-{requestorUserId}-{accepted}")]
