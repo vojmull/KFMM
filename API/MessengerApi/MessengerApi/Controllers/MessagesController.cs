@@ -15,7 +15,7 @@ namespace MessengerApi.Controllers
     public class MessagesController : ApiController
     {
         private dbContext _database = new dbContext();
-        private CheckOnlineUtility onlineUtility = new CheckOnlineUtility();
+        //private CheckOnlineUtility onlineUtility = new CheckOnlineUtility();
 
         //D:\vojta\Knihovny\Desktop\git_desktop\KFMM\API\MessengerApi\MessengerApi
         private string _imgStorage = @"D:\vojta\Knihovny\Desktop\git_desktop\KFMM\API\MessengerApi\MessengerApi" + "/_imgStorage/";
@@ -26,7 +26,7 @@ namespace MessengerApi.Controllers
         [System.Web.Http.HttpGet]
         public string GetConversations(string token, int userId, int conversationCnt)
         {
-            this.onlineUtility.ConfirmOnlineStatus(userId);
+            CheckOnlineUtility.ConfirmOnlineStatus(userId);
 
             Token t = Token.Exists(token);
             if (t == null)

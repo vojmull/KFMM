@@ -1,14 +1,15 @@
-﻿using System;
+﻿using MessengerApi.Models;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
-using MessengerApi.Models;
-using Newtonsoft.Json;
 
 namespace MessengerApi.Controllers
 {
-    public class ProfileControler : ApiController
+    public class ProfileController : ApiController
     {
         private dbContext _database = new dbContext();
 

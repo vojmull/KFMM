@@ -61,10 +61,18 @@ namespace MessengerApi.Controllers
                 return "TokenERROR";
             }
 
+            if (!bAccepted)
+            {
+                FriendshipRequests fr = this._database.FriendshipRequests.Where(f => f.IdUser2 == userId && f.IdUserRequestor == requestorUserId).FirstOrDefault();
+                this._database.FriendshipRequests.Remove(fr);
+                this._database.SaveChanges();
+                return "OK";
+            }
+
             try
             {
                 FriendshipRequests fr = this._database.FriendshipRequests.Where(f => f.IdUserRequestor == requestorUserId && userId == f.IdUser2).FirstOrDefault();
-                fr.Accepted = bAccepted;
+                fr.Accepted = true;
                 this._database.SaveChanges();
 
                 if (bAccepted)
