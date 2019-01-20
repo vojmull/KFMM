@@ -34,6 +34,7 @@ public class ConversationActivity extends AppCompatActivity {
         SharedPreferences sp = getSharedPreferences("global", Context.MODE_PRIVATE);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
+
         Window window = this.getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -194,53 +195,57 @@ public class ConversationActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         ListView conversation_listView;
+                        conversation_listView = (ListView) findViewById(R.id.conversation_listView);
+                        if(conversation_listView.getLastVisiblePosition() == conversation_listView.getAdapter().getCount() -1 &&
+                                conversation_listView.getChildAt(conversation_listView.getChildCount() - 1).getBottom() <= conversation_listView.getHeight()){
 
-                        List<String> conversations = new ArrayList<String>();
-                        List<Boolean> seen = new ArrayList<Boolean>();
-                        List<Boolean> delievered = new ArrayList<Boolean>();
-                        List<String> times = new ArrayList<String>();
-                        List<String> authors = new ArrayList<String>();
 
-                        try {
-                            String response = new SendGetConversations().execute(idMessage,sp.getString("AppUrl","None"),
-                                    sp.getString("Token","None")).get();
-                            response = response.substring(1,response.length()-1);
-                            response = response.replace("\\","");
+                            List<String> conversations = new ArrayList<String>();
+                            List<Boolean> seen = new ArrayList<Boolean>();
+                            List<Boolean> delievered = new ArrayList<Boolean>();
+                            List<String> times = new ArrayList<String>();
+                            List<String> authors = new ArrayList<String>();
 
-                            String response3 = new SendGetConfirmConversationRead().execute(idMessage,sp.getString("AppUrl","None"),
-                                    sp.getString("Token","None"),
-                                    sp.getString("UserId","None")).get();
-
-                            JSONArray jArray = null;
                             try {
-                                jArray = new JSONArray(response);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                for(int i=0;i<jArray.length();i++)
-                                {
-                                    JSONObject jsonObject = jArray.getJSONObject(i);
-                                    conversations.add(jsonObject.optString("Content"));
-                                    seen.add(jsonObject.optBoolean("Seen"));
-                                    delievered.add(jsonObject.optBoolean("Delievered"));
-                                    times.add(jsonObject.optString("TimeSent"));
-                                    authors.add(jsonObject.optString("IdAuthor"));
+                                String response = new SendGetConversations().execute(idMessage, sp.getString("AppUrl", "None"),
+                                        sp.getString("Token", "None")).get();
+                                response = response.substring(1, response.length() - 1);
+                                response = response.replace("\\", "");
+
+                                String response3 = new SendGetConfirmConversationRead().execute(idMessage, sp.getString("AppUrl", "None"),
+                                        sp.getString("Token", "None"),
+                                        sp.getString("UserId", "None")).get();
+
+                                JSONArray jArray = null;
+                                try {
+                                    jArray = new JSONArray(response);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                try {
+                                    for (int i = 0; i < jArray.length(); i++) {
+                                        JSONObject jsonObject = jArray.getJSONObject(i);
+                                        conversations.add(jsonObject.optString("Content"));
+                                        seen.add(jsonObject.optBoolean("Seen"));
+                                        delievered.add(jsonObject.optBoolean("Delievered"));
+                                        times.add(jsonObject.optString("TimeSent"));
+                                        authors.add(jsonObject.optString("IdAuthor"));
+                                    }
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
                                 }
 
-                            } catch (JSONException e) {
+                            } catch (ExecutionException e) {
+                                e.printStackTrace();
+                            } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
 
-                        } catch (ExecutionException e) {
-                            e.printStackTrace();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
 
-                        conversation_listView = (ListView) findViewById(R.id.conversation_listView);
-                        CustomListView_conversations customListView_conversations = new CustomListView_conversations(ConversationActivity.this,conversations,delievered,seen,times,authors);
-                        conversation_listView.setAdapter(customListView_conversations);
+                            CustomListView_conversations customListView_conversations = new CustomListView_conversations(ConversationActivity.this, conversations, delievered, seen, times, authors);
+                            conversation_listView.setAdapter(customListView_conversations);
+                        }
                     }
                 });
             }

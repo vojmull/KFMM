@@ -13,9 +13,45 @@ namespace MessengerApi.Controllers
         private dbContext _database = new dbContext();
 
         // Poslani zadosti o pridani noveho pritele
-        [System.Web.Http.Route("api/friends/adduser/{token}-{userId}-{requestedUserId}")]
+        [System.Web.Http.Route("api/friends/adduser/{token}-{userId}")]
+        [System.Web.Http.HttpPost]
+        public string AddFriend(string token, int userId, [FromBody]string content)
+        {
+            string toRet = "OK";
+
+            Token t = Token.Exists(token);
+            if (t == null || !t.IsUser)
+            {
+                return "TokenERROR";
+            }
+
+            try
+            {
+                FriendshipRequests f = new FriendshipRequests()
+                {
+                    Accepted = false,
+                    IdUserRequestor = userId,
+                    IdUser2 = this._database.Users.Where(u => u.Email == content).Select(u => u.Id).FirstOrDefault(),
+                    TimeSent = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                    RequestExpiration = DateTime.Now.AddDays(7).ToString("yyyy-MM-dd HH:mm:ss")
+                };
+
+                this._database.FriendshipRequests.Add(f);
+                this._database.SaveChanges();
+            }
+            catch
+            {
+                toRet = "ProblemWithDatabase";
+            }
+
+            return toRet;
+        }
+        
+        
+        // Poslani zadosti o pridani noveho pritele koren
+        [System.Web.Http.Route("api/friends/adduserkoren/{token}-{userId}-{requestedUserId}")]
         [System.Web.Http.HttpGet]
-        public string AddFriend(string token, int userId, int requestedUserId)
+        public string AddFriendKoren(string token, int userId, int requestedUserId)
         {
             string toRet = "OK";
 
@@ -47,6 +83,7 @@ namespace MessengerApi.Controllers
             return toRet;
         }
 
+
         //Potvrzeni zadosti o pridani do pratel
         [System.Web.Http.Route("api/friends/adduser/{token}-{userId}-{requestorUserId}-{accepted}")]
         [System.Web.Http.HttpGet]
@@ -71,8 +108,8 @@ namespace MessengerApi.Controllers
 
             try
             {
-                FriendshipRequests fr = this._database.FriendshipRequests.Where(f => f.IdUserRequestor == requestorUserId && userId == f.IdUser2).FirstOrDefault();
-                fr.Accepted = true;
+                FriendshipRequests fr = this._database.FriendshipRequests.Where(f => f.IdUserRequestor == requestorUserId && userId == f.IdUser2 && f.Accepted == false).FirstOrDefault();
+                fr.Accepted = bAccepted;
                 this._database.SaveChanges();
 
                 if (bAccepted)

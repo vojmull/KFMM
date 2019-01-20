@@ -39,8 +39,8 @@
 
     <TextView
         android:id="@+id/name_manageFriends_textView"
-        android:layout_width="82dp"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
         android:layout_alignParentTop="true"
         android:layout_marginStart="18dp"
         android:layout_marginLeft="18dp"
@@ -52,8 +52,8 @@
 
     <TextView
         android:id="@+id/surname_manageFriends_textView"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
         android:layout_alignBottom="@+id/name_manageFriends_textView"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"

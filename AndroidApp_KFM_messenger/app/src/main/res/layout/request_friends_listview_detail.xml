@@ -5,10 +5,10 @@
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/delete_friends_listview_button2"
+        android:id="@+id/decline_requestFriends_listview_button2"
         android:layout_width="wrap_content"
         android:layout_height="38dp"
-        android:layout_below="@+id/name_friends_textView"
+        android:layout_below="@+id/name_requestFriends_textView"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="113dp"
         android:layout_marginLeft="113dp"
@@ -19,17 +19,17 @@
         android:layout_toEndOf="@+id/img_friends_imageView"
         android:layout_toRightOf="@+id/img_friends_imageView"
         android:background="@color/primaryColor"
-        android:text="Delete"
+        android:text="Decline"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/chat_friends_listview_button"
+        android:id="@+id/confirm_requestFriends_listview_button"
         android:layout_width="wrap_content"
         android:layout_height="38dp"
-        android:layout_below="@+id/name_friends_textView"
+        android:layout_below="@+id/name_requestFriends_textView"
         android:layout_marginStart="18dp"
         android:layout_marginLeft="18dp"
         android:layout_marginTop="3dp"
@@ -40,7 +40,7 @@
         android:layout_toEndOf="@+id/img_friends_imageView"
         android:layout_toRightOf="@+id/img_friends_imageView"
         android:background="@color/primaryColor"
-        android:text="Chat"
+        android:text="Confirm"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,7 +59,7 @@
         tools:srcCompat="@tools:sample/avatars[0]" />
 
     <TextView
-        android:id="@+id/name_friends_textView"
+        android:id="@+id/name_requestFriends_textView"
         android:layout_width="wrap_content"
         android:layout_height="25dp"
         android:layout_alignParentTop="true"
@@ -69,25 +69,6 @@
         android:layout_toEndOf="@+id/img_friends_imageView"
         android:layout_toRightOf="@+id/img_friends_imageView"
         android:text="Name"
-        android:textSize="18sp" />
-
-    <TextView
-        android:id="@+id/surname_friends_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="25dp"
-        android:layout_alignBottom="@+id/name_friends_textView"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginStart="3dp"
-        android:layout_marginLeft="3dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginEnd="45dp"
-        android:layout_marginRight="45dp"
-        android:layout_marginBottom="0dp"
-        android:layout_toEndOf="@+id/name_friends_textView"
-        android:layout_toRightOf="@+id/name_friends_textView"
-        android:text="Surname"
         android:textSize="18sp" />
 
 </RelativeLayout>

@@ -46,10 +46,13 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ChangeColorActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".ManageFriendsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ManageFriendsActivity"
             android:theme="@style/AppTheme.NoActionBar">
-
+        </activity>
+        <activity android:name=".friendRequestsActivity"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
 
