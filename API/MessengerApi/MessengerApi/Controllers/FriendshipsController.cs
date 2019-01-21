@@ -25,13 +25,38 @@ namespace MessengerApi.Controllers
                 return "TokenERROR";
             }
 
+            int userId2;
+
             try
             {
+                userId2 = this._database.Users.Where(u => u.Email == content).Select(u => u.Id).First();
+            }
+            catch
+            {
+                return "EmailDoesntExists";
+            }
+
+            try
+            {
+                //check jestli uz zadost neexistuje
+                List<FriendshipRequests> requests = this._database.FriendshipRequests.Where(fr => fr.IdUserRequestor == userId && fr.IdUser2 == userId2).ToList();
+                if (requests.Count > 0)
+                {
+                    return "AlreadyRequested";
+                }
+
+                //check jestli uz se nekamosi
+                List<Friendships> friendships = this._database.Friendships.Where(x => (x.IdUser1 == userId && x.IdUser2 == userId2) || (x.IdUser2 == userId && x.IdUser1 == userId2)).ToList();
+                if (friendships.Count > 0)
+                {
+                    return "FriendshipAlreadyExists";
+                }
+
                 FriendshipRequests f = new FriendshipRequests()
                 {
                     Accepted = false,
                     IdUserRequestor = userId,
-                    IdUser2 = this._database.Users.Where(u => u.Email == content).Select(u => u.Id).FirstOrDefault(),
+                    IdUser2 = this._database.Users.Where(u => u.Email == content).Select(u => u.Id).First(),
                     TimeSent = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
                     RequestExpiration = DateTime.Now.AddDays(7).ToString("yyyy-MM-dd HH:mm:ss")
                 };

@@ -29,15 +29,19 @@ namespace MessengerApi.Utilities
 
         private static void CheckDatabase(object source, ElapsedEventArgs e)
         {
-            foreach (Users item in _database.Users.Where(u => u.IsOnline).ToList())
+            try
             {
-                DateTime lastOnline = Convert.ToDateTime(item.TimeLastOnline);
-                if (lastOnline.AddSeconds(60) < DateTime.Now)
+                foreach (Users item in _database.Users.Where(u => u.IsOnline).ToList())
                 {
-                    item.IsOnline = false;
+                    DateTime lastOnline = Convert.ToDateTime(item.TimeLastOnline);
+                    if (lastOnline.AddSeconds(60) < DateTime.Now)
+                    {
+                        item.IsOnline = false;
+                    }
                 }
+                _database.SaveChanges();
             }
-            _database.SaveChanges();
+            catch { }
         }
     }
 }

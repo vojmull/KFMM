@@ -32,5 +32,11 @@ namespace MessengerApi.Models
         public string ImageServerPath { get; set; }
         [NotMapped]
         public bool LastMessageRead { get; set; }
+        [NotMapped]
+        public int IdParticipant { get; set; }
+        [NotMapped]
+        public bool IsOnline { get; set; }
+        [NotMapped]
+        public string TimeLastOnline { get; set; }
     }
 }

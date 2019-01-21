@@ -68,18 +68,21 @@ namespace MessengerApi.Controllers
                 {
                     foreach (Participants p in par)
                     {
-                        item.ChatName += this._database.Users.Where(u => u.Id == p.IdUser).Select(u => u.Name).First() + " ";
+                        item.ChatName += this._database.Users.Where(u => u.Id == p.IdUser).Select(u => u.Name).First() + ", ";
                     }
                     item.ChatName = item.ChatName.Substring(0, 15) + "...";
                 }
                 else
                 {
                     item.ChatName = $"{user.Name} {user.Surname}";
-
                 }
+
                 item.Name = user.Name;
                 item.Surname = user.Surname;
                 item.ImageServerPath = user.ImageServerPath;
+                item.IdParticipant = user.Id;
+                item.IsOnline = item.IsOnline;
+                item.TimeLastOnline = item.TimeLastOnline;
             }
 
             return JsonConvert.SerializeObject(Conversations.OrderByDescending(c => c.LastMessageSentAt));
