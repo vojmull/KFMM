@@ -73,18 +73,39 @@ namespace MessengerApi.Controllers
             if (toRet == "0")
                 return "0-0";
 
+            int uId = Convert.ToInt32(toRet);
+            var query = from p in this._database.Participants
+                        join c in this._database.Conversations
+                        on p.IdConversation equals c.Id
+                        join u in this._database.Users
+                        on p.IdUser equals u.Id
+                        where p.IdUser == uId
+                        select c;
+
+            foreach (Conversations item in query.ToList())
+            {
+                foreach (Participants par in this._database.Participants.Where(p => p.IdConversation == item.Id).ToList())
+                {
+                    if (par.IdUser == userId)
+                        return $"{toRet}-{item.Id.ToString()}";
+                }
+            }
+
+            return toRet + "-0";
+
+
             //int pId = Convert.ToInt32(toRet);
             ////check konverzace
             //List<Participants> p = this._database.Participants.OrderBy(p => p.IdConversation).ToList();
 
-            //p.Where(x => x.)
+                //p.Where(x => x.)
 
-            //foreach (Participants item in p)
-            //{
-            //    if (item.IdConversation == )
-            //}
+                //foreach (Participants item in p)
+                //{
+                //    if (item.IdConversation == )
+                //}
 
-            return toRet.ToString();
+                return toRet.ToString();
         }
     }
 }
