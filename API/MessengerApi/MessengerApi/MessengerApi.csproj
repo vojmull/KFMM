@@ -183,7 +183,6 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AppColorController.cs" />
     <Compile Include="Controllers\FriendshipsController.cs" />
-    <Compile Include="Controllers\GroupMessagesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Controllers\NewInitializationTokenController.cs" />

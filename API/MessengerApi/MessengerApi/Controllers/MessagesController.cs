@@ -63,7 +63,20 @@ namespace MessengerApi.Controllers
                 int idParticipant = par[0].IdUser;
 
                 Users user = this._database.Users.Where(u => u.Id == idParticipant).FirstOrDefault();
-                item.ChatName = (par.Count > 1) ? "Group" : $"{user.Name} {user.Surname}";
+
+                if (par.Count > 1)
+                {
+                    foreach (Participants p in par)
+                    {
+                        item.ChatName += this._database.Users.Where(u => u.Id == p.IdUser).Select(u => u.Name).First() + " ";
+                    }
+                    item.ChatName = item.ChatName.Substring(0, 15) + "...";
+                }
+                else
+                {
+                    item.ChatName = $"{user.Name} {user.Surname}";
+
+                }
                 item.Name = user.Name;
                 item.Surname = user.Surname;
                 item.ImageServerPath = user.ImageServerPath;
@@ -255,6 +268,59 @@ namespace MessengerApi.Controllers
                         select c;
 
             return JsonConvert.SerializeObject(query.FirstOrDefault());
+        }
+
+        //GROUP MESSAGES
+        [System.Web.Http.Route("api/messages/groups/adduser/{token}-{userToAdd}-{conversationId}")]
+        [System.Web.Http.HttpGet]
+        public string AddUserToConversation(string token, int userToAdd, int conversationId)
+        {
+            Token t = Token.Exists(token);
+            if (t == null || !t.IsUser)
+            {
+                return "ERROR";
+            }
+
+
+            try
+            {
+                this._database.Participants.Add(new Participants()
+                {
+                    IdConversation = conversationId,
+                    IdUser = userToAdd
+                });
+
+                this._database.SaveChanges();
+                return "OK";
+            }
+            catch
+            {
+                return "DatabaseError";
+            }
+        }
+
+        [System.Web.Http.Route("api/messages/groups/removeuser/{token}-{userToRemove}-{conversationId}")]
+        [System.Web.Http.HttpGet]
+        public string RemoveUserFromConversation(string token, int userToRemove, int conversationId)
+        {
+            Token t = Token.Exists(token);
+            if (t == null || !t.IsUser)
+            {
+                return "ERROR";
+            }
+
+
+            try
+            {
+                this._database.Participants.Remove(this._database.Participants.Where(p => p.IdConversation == conversationId && p.IdUser == userToRemove).First());
+
+                this._database.SaveChanges();
+                return "OK";
+            }
+            catch
+            {
+                return "DatabaseError";
+            }
         }
     }
 }
