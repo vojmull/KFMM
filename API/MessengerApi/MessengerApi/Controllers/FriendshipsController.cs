@@ -184,6 +184,43 @@ namespace MessengerApi.Controllers
                 return "ERROR";
             }
         }
+        
+        //Vraceni vsech memberu v konvezraci
+        [System.Web.Http.Route("api/members/{token}-{conversationId}")]
+        [System.Web.Http.HttpGet]
+        public string GetMembers(string token, int conversationId)
+        {
+            string toRet = "OK";
+
+            Token t = Token.Exists(token);
+            if (t == null || !t.IsUser)
+            {
+                return "TokenERROR";
+            }
+
+            try
+            {
+                List<Users> colToRet = new List<Users>();
+
+                var query = from pt in this._database.Participants
+                            join us in this._database.Users
+                            on pt.IdUser equals us.Id
+                            where pt.IdConversation == conversationId
+                            select us;
+
+                foreach (Users item in query.ToList<Users>())
+                {
+                    item.Password = "";
+                    colToRet.Add(item);
+                }
+
+                return JsonConvert.SerializeObject(colToRet.Distinct());
+            }
+            catch
+            {
+                return "ERROR";
+            }
+        }
 
         //Odebrani pritele z pratel
         [System.Web.Http.Route("api/friends/remove/{token}-{userId}-{userToRemove}")]
