@@ -38,12 +38,14 @@ namespace MessengerApi.Controllers
 
             try
             {
+            
+                
                 //check jestli uz zadost neexistuje
-                List<FriendshipRequests> requests = this._database.FriendshipRequests.Where(fr => fr.IdUserRequestor == userId && fr.IdUser2 == userId2).ToList();
-                if (requests.Count > 0)
-                {
-                    return "AlreadyRequested";
-                }
+                //List<FriendshipRequests> requests = this._database.FriendshipRequests.Where(fr => fr.IdUserRequestor == userId && fr.IdUser2 == userId2).ToList();
+                //if (requests.Count > 0)
+                //{
+                //    return "AlreadyRequested";
+                //}
 
                 //check jestli uz se nekamosi
                 List<Friendships> friendships = this._database.Friendships.Where(x => (x.IdUser1 == userId && x.IdUser2 == userId2) || (x.IdUser2 == userId && x.IdUser1 == userId2)).ToList();
